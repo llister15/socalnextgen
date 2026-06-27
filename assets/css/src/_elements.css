@@ -22,10 +22,15 @@ html {
 
 /* stylelint-disable */
 body {
-	background: var(--content-background-color);
+	background: var(--background-color);
 	/* Fallback for when there is no custom background color defined. */
 }
 /* stylelint-enable */
+
+.site,
+.site-main {
+	background: var(--content-background-color);
+}
 
 /* stylelint-disable */
 hr {

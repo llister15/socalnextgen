@@ -76,7 +76,7 @@
 	margin-left: auto;
 	padding-right: 1.5rem;
 	padding-left: 1.5rem;
-	max-width: var(--content-width);
+	max-width: var(--wide-content-width);
 }
 
 .page-header,
@@ -105,6 +105,17 @@
 	padding-right: 1.5rem;
 	padding-left: 1.5rem;
 	max-width: var(--content-width);
+}
+
+.page-template-page-about .entry-content > *,
+.page-template-page-leadership-hub .entry-content > *,
+.page-template-page-fine-arts .entry-content > *,
+.page-template-page-scholarships .entry-content > *,
+.page-template-page-resources .entry-content > *,
+.page-template-page-gallery .entry-content > *,
+.page-template-page-contact .entry-content > * {
+	max-width: var(--wide-content-width);
+	text-align: center;
 }
 
 @media (--content-query) {

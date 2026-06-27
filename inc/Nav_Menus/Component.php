@@ -39,6 +39,7 @@ use function wp_nav_menu;
 class Component implements Component_Interface, Templating_Component_Interface {
 
 	const PRIMARY_NAV_MENU_SLUG = 'primary';
+	const FOOTER_QUICK_LINKS_MENU_SLUG = 'footer_quick_links';
 
 	/**
 	 * All theme settings - from JSON file.
@@ -184,7 +185,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	public function action_register_nav_menus() {
 		register_nav_menus(
 			array(
-				static::PRIMARY_NAV_MENU_SLUG => esc_html__( 'Primary', 'wp-rig' ),
+				static::PRIMARY_NAV_MENU_SLUG            => esc_html__( 'Primary', 'wp-rig' ),
+				static::FOOTER_QUICK_LINKS_MENU_SLUG    => esc_html__( 'Footer Quick Links', 'socalnextgen' ),
 			)
 		);
 	}

@@ -14,6 +14,7 @@ use WP_REST_Server;
 use WP_Rig\WP_Rig\Component_Interface;
 use WP_Rig\WP_Rig\Templating_Component_Interface;
 use function add_action;
+use function get_current_screen;
 
 /**
  * Class for adding basic theme support, most of which is mandatory to be implemented by all themes.
@@ -74,10 +75,16 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * Enqueues the theme options admin scripts.
 	 */
 	public function theme_options_enqueue_scripts(): void {
+		$screen = get_current_screen();
+
+		if ( $screen && 'toplevel_page_wp-rig-settings' === $screen->id ) {
+			wp_enqueue_media();
+		}
+
 		wp_enqueue_script(
 			'wp-rig-theme-settings',
 			get_template_directory_uri() . '/assets/js/admin/index.min.js',
-			array( 'wp-element', 'wp-components', 'wp-data' ),
+			array( 'wp-element', 'wp-components', 'wp-data', 'media-views' ),
 			filemtime( get_template_directory() . '/assets/js/admin/index.min.js' ),
 			true
 		);
@@ -177,9 +184,16 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 			switch ( $sanitized_key ) {
 				case 'email_option':
+				case 'scng_footer_email':
 					$sanitized_settings[ $sanitized_key ] = sanitize_email( $value );
 					break;
 				case 'url_option':
+				case 'scng_hero_slide_1_url':
+				case 'scng_hero_slide_2_url':
+				case 'scng_hero_slide_3_url':
+				case 'scng_facebook_url':
+				case 'scng_instagram_url':
+				case 'scng_youtube_url':
 					$sanitized_settings[ $sanitized_key ] = esc_url_raw( $value );
 					break;
 				default:

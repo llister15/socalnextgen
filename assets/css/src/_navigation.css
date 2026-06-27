@@ -362,6 +362,7 @@ body.mobile-menu-open {
 /*--------------------------------------------------------------
 ## Main navigation menu
 --------------------------------------------------------------*/
+/* stylelint-disable no-descending-specificity */
 .main-navigation {
 	display: block;
 	margin: 0 auto 2em;
@@ -430,6 +431,7 @@ body.mobile-menu-open {
 		justify-content: space-between;
 	}
 }
+/* stylelint-enable no-descending-specificity */
 
 /*--------------------------------------------------------------
 ## Main navigation menu - overrides for navigation block
@@ -684,3 +686,66 @@ body.mobile-menu-open {
 		display: none;
 	}
 }
+
+/* stylelint-disable no-descending-specificity */
+/* SoCal NextGen navigation finish. */
+.site-header .primary-menu-container {
+	align-items: flex-end;
+	width: auto;
+}
+
+.site-header .main-navigation {
+	margin: 0;
+	padding: 0;
+}
+
+.site-header .main-navigation a,
+.site-header .main-navigation button {
+	font-weight: 800;
+	text-transform: uppercase;
+	color: var(--scng-navy);
+}
+
+.site-header .main-navigation a:hover,
+.site-header .main-navigation a:focus,
+.site-header .main-navigation button:hover,
+.site-header .main-navigation button:focus {
+	color: var(--scng-orange);
+	text-decoration: none;
+}
+
+.site-header .main-navigation .current-menu-item > a,
+.site-header .main-navigation .current-menu-ancestor > a {
+	color: var(--scng-orange);
+	box-shadow: inset 0 -3px 0 var(--scng-orange);
+}
+
+@media (--wide-menu-query) {
+	.site-header .main-navigation .menu {
+		align-items: center;
+		gap: clamp(0.25rem, 1vw, 1rem);
+	}
+
+	.site-header .main-navigation ul li {
+		margin-left: 0;
+	}
+
+	.site-header .main-navigation ul li a,
+	.site-header .main-navigation ul li button {
+		padding: 0.75rem 0.45rem;
+		font-size: 0.82rem;
+	}
+
+}
+
+.scng-header-cta {
+	display: none;
+	flex: 0 0 auto;
+}
+
+@media (--wide-menu-query) {
+	.scng-header-cta {
+		display: inline-flex;
+	}
+}
+/* stylelint-enable no-descending-specificity */

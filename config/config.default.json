@@ -1,12 +1,12 @@
 {
   "theme": {
     "PHPNamespace": "WP_Rig\\WP_Rig",
-    "slug": "wp-rig",
-    "name": "WP Rig",
-    "theme_uri": "https://github.com/wprig/wprig/",
-    "author": "The WP Rig Contributors",
-    "author_uri": "https://wprig.io/",
-    "description": "A progressive theme development rig for WordPress.",
+    "slug": "socalnextgen",
+    "name": "SoCalNextGen",
+    "theme_uri": "https://socalnextgen.org/",
+    "author": "SoCal NextGen",
+    "author_uri": "https://socalnextgen.org/",
+    "description": "A custom SoCal NextGen Youth Ministries theme.",
     "version": "1.0.0",
     "themeType": "classic",
     "enableBlocks": false

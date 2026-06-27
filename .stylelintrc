@@ -33,7 +33,11 @@
 			}
 		]
 	},
-	"ignoreFiles": ["**/vendor/**/*.css"],
+	"ignoreFiles": [
+		"**/vendor/**/*.css",
+		"assets/css/src/_tailwind-input.css",
+		"assets/css/src/_tailwind.css"
+	],
 	"overrides": [
 		{
 			"files": ["**/*.scss"],

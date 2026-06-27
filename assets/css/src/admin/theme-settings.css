@@ -5,6 +5,30 @@
 		align-items: normal;
 		margin-top: 1.3em;
 	}
+
+	.wp-rig-media-control {
+		display: grid;
+		gap: .75rem;
+	}
+
+	.wp-rig-media-control__preview {
+		display: block;
+		width: 100%;
+		max-width: 24rem;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border: 1px solid #dcdcde;
+		border-radius: 4px;
+		background: #f6f7f7;
+	}
+
+	.wp-rig-media-control__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .75rem;
+		align-items: center;
+	}
+
 	#settings-saved {
 		position: fixed;
 		width: 50%;

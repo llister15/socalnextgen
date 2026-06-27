@@ -35,4 +35,6 @@ namespace WP_Rig\WP_Rig;
 		<?php get_template_part( 'template-parts/header/branding' ); ?>
 
 		<?php get_template_part( 'template-parts/header/navigation' ); ?>
+
+		<a class="scng-header-cta scng-button scng-button-primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Stay Connected', 'socalnextgen' ); ?></a>
 	</header><!-- #masthead -->

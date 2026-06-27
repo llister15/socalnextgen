@@ -10,11 +10,17 @@ namespace WP_Rig\WP_Rig;
 ?>
 <div class="site-branding flex-1">
 
-	<?php the_custom_logo(); ?>
+	<a class="scng-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+		<img class="scng-brand__mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="<?php esc_attr_e( 'SoCal NextGen Youth Ministries', 'socalnextgen' ); ?>">
+		<span class="scng-brand__text">
+			<span class="scng-brand__name"><?php esc_html_e( 'So Cal NextGen', 'socalnextgen' ); ?></span>
+			<span class="scng-brand__tagline"><?php esc_html_e( 'Youth Ministries', 'socalnextgen' ); ?></span>
+		</span>
+	</a>
 
 	<?php
 	// Check if the "Display Site Title and Tagline" customizer setting is checked.
-	if ( get_theme_mod( 'display_header_text', true ) ) {
+	if ( false && get_theme_mod( 'display_header_text', true ) ) {
 		?>
 
 		<?php if ( is_front_page() && is_home() ) : ?>

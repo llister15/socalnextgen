@@ -1,0 +1,61 @@
+{
+  "theme": {
+    "slug": "socalnextgen",
+    "name": "SoCalNextGen",
+    "theme_uri": "https://socalnextgen.org/",
+    "author": "SoCal NextGen",
+    "author_uri": "https://socalnextgen.org/",
+    "description": "A custom SoCal NextGen Youth Ministries theme.",
+    "version": "1.0.0",
+    "themeType": "classic",
+    "enableBlocks": false
+  },
+  "dev": {
+    "admin": {
+      "user": "admin",
+      "password": "password"
+    },
+    "browserSync": {
+      "live": true,
+      "proxyURL": "wprig.test:8888",
+      "bypassPort": "8181",
+      "https": false,
+      "keyPath": "",
+      "certPath": "",
+      "devPort": 3000
+    },
+    "styles": {
+      "stage": 3,
+      "autoprefixer": {
+        "grid": false
+      },
+      "preload": [
+        "_custom-media.css"
+      ],
+      "features": {
+        "mobile-nav-type": "modern"
+      }
+    },
+    "debug": {
+      "styles": false,
+      "scripts": false,
+      "phpcs": true
+    }
+  },
+  "export": {
+    "filesToCopy": [
+      "LICENSE",
+      "readme.txt",
+      "screenshot.png",
+      "assets/css/vendor/**/*.css",
+      "assets/js/vendor/**/*.js",
+      "assets/svg/*.svg",
+      "assets/images/*.svg",
+      "assets/images/*.png",
+      "assets/images/*.jpg",
+      "assets/images/*.jpeg",
+      "assets/images/*.webp",
+      "inc/EZ_Customizer/themeCustomizeSettings.json"
+    ]
+  }
+}

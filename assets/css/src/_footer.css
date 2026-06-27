@@ -2,12 +2,29 @@
 # Footer
 --------------------------------------------------------------*/
 .site-footer {
-	margin: 1em 0 0;
-	padding: 2em 0;
-	font-family: var(--highlight-font-family);
-	font-stretch: condensed;
+	margin: 0;
+	padding: 0;
+	font-family: var(--global-font-family);
+	background: var(--scng-navy);
+	color: #fff;
 }
 
 .site-info {
-	text-align: center;
+	text-align: left;
+}
+
+.site-footer nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-footer nav a {
+	color: rgb(255 255 255 / 0.75);
+	text-decoration: none;
+}
+
+.site-footer nav a:hover,
+.site-footer nav a:focus {
+	color: var(--scng-gold);
 }

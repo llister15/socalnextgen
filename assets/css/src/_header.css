@@ -8,7 +8,14 @@
 --------------------------------------------------------------*/
 
 .site-header {
-	padding: 1em;
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.85rem clamp(1rem, 4vw, 3rem);
+	background: #fff;
+	box-shadow: 0 1px 14px rgb(7 27 58 / 0.12);
 
 	> .menu-toggle {
 		display: flex;
@@ -27,7 +34,7 @@
 
 .custom-logo-link {
 	display: inline-block;
-	margin: 0 auto 1em;
+	margin: 0;
 }
 
 .site-title {
@@ -40,11 +47,11 @@
 }
 
 .site-branding {
-	text-align: center;
-	max-height: 150px;
+	text-align: left;
+	max-height: none;
 	display: flex;
 	align-items: center;
-	justify-content: end;
+	justify-content: flex-start;
 
 	img {
 		max-width: 100%;
@@ -63,6 +70,46 @@
 		padding: 1.75em 0;
 		margin: 0;
 	}
+}
+
+.scng-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	text-decoration: none;
+}
+
+.scng-brand__mark {
+	width: 3.25rem;
+	height: 3.25rem;
+	flex: 0 0 auto;
+}
+
+.site-header .scng-brand__mark {
+	width: 3rem;
+	height: 3rem;
+}
+
+.scng-brand__name {
+	display: block;
+	font-family: var(--highlight-font-family);
+	font-size: 1.15rem;
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: 0.04em;
+	color: var(--scng-navy);
+	text-transform: uppercase;
+}
+
+.scng-brand__tagline {
+	display: block;
+	margin-top: 0.2rem;
+	font-family: var(--highlight-font-family);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	color: var(--scng-navy);
+	text-transform: uppercase;
 }
 
 @media (--wide-menu-query){

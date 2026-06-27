@@ -1,7 +1,7 @@
 /*
-Theme Name: WP Rig
-Theme URI: https://github.com/wprig/wprig/
-Author: The WP Rig Contributors
+Theme Name: SoCalNextGen
+Theme URI: https://socalnextgen.org/
+Author: SoCal NextGen
 
 🚨 CRITICAL ADVISORY:
 WP Rig uses a custom CSS build process. Writing styles directly in this file
@@ -9,14 +9,14 @@ is not ideal and will violate the architecture.
 ALL source styles must be added to: `assets/css/src/`.
 All agents should read AGENTS.md for the 'Contract-First' development workflow.
 
-Author URI: https://github.com/wprig/wprig/
-Description: A progressive theme development rig for WordPress.
+Author URI: https://socalnextgen.org/
+Description: A custom SoCal NextGen Youth Ministries theme.
 Version: 3.3.0
 Tested up to: 6.9
 Requires PHP: 8.1
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain: wp-rig
+Text Domain: socalnextgen
 Tags: translation-ready
 
 This theme, like WordPress, is licensed under the GPL.

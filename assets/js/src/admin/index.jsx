@@ -1,7 +1,15 @@
 // Use WordPress globals to avoid bundling @wordpress/* modules
-/* global wp */
-const { createRoot, useState, useCallback, useRef } = wp.element;
-const { PanelRow, TabPanel, TextControl, SnackbarList, BaseControl, SelectControl, FormToggle } = wp.components;
+const { createRoot, useState, useCallback, useRef } = window.wp.element;
+const {
+	PanelRow,
+	TabPanel,
+	TextControl,
+	SnackbarList,
+	BaseControl,
+	SelectControl,
+	FormToggle,
+	Button,
+} = window.wp.components;
 import { updateSettings } from './api.js';
 import formFieldsData from './settingsFields.json';
 
@@ -18,23 +26,78 @@ const textControlTypes = [
 	'datetime-local',
 ];
 
-const SettingsPage = () => {
-	const [ settings, setSettings ] = useState(
-		window.wpRigThemeSettings.settings
-	);
-	const [ snackbarNotices, setSnackbarNotices ] = useState( [] );
-	const timeoutRef = useRef( null );
+const MediaControl = ({ field, value, onChange }) => {
+	const openMediaFrame = () => {
+		const frame = window.wp.media({
+			title: field.label,
+			button: {
+				text: value ? 'Replace image' : 'Select image',
+			},
+			library: {
+				type: 'image',
+			},
+			multiple: false,
+		});
 
-	const debouncedUpdateSettings = useCallback( ( newSettings ) => {
+		frame.on('select', () => {
+			const attachment = frame.state().get('selection').first().toJSON();
+
+			onChange(attachment.url || '');
+		});
+
+		frame.open();
+	};
+
+	return (
+		<BaseControl
+			label={field.label}
+			id={`wp-rig-control-${field.name}`}
+			__nextHasNoMarginBottom
+		>
+			<div className="wp-rig-media-control">
+				{value && (
+					<img
+						className="wp-rig-media-control__preview"
+						src={value}
+						alt=""
+					/>
+				)}
+				<div className="wp-rig-media-control__actions">
+					<Button variant="secondary" onClick={openMediaFrame}>
+						{value ? 'Replace image' : 'Select image'}
+					</Button>
+					{value && (
+						<Button
+							variant="link"
+							isDestructive
+							onClick={() => onChange('')}
+						>
+							Remove image
+						</Button>
+					)}
+				</div>
+			</div>
+		</BaseControl>
+	);
+};
+
+const SettingsPage = () => {
+	const [settings, setSettings] = useState(
+		window.wpRigThemeSettings.settings || {}
+	);
+	const [snackbarNotices, setSnackbarNotices] = useState([]);
+	const timeoutRef = useRef(null);
+
+	const debouncedUpdateSettings = useCallback((newSettings) => {
 		// Clear previous timeout
-		if ( timeoutRef.current ) {
-			clearTimeout( timeoutRef.current );
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
 		}
 
 		// Set new timeout
-		timeoutRef.current = setTimeout( () => {
-			updateSettings( newSettings ).then( ( response ) => {
-				if ( response.success ) {
+		timeoutRef.current = setTimeout(() => {
+			updateSettings(newSettings).then((response) => {
+				if (response.success) {
 					const newNotice = {
 						id: Date.now(),
 						content: 'Settings saved!',
@@ -42,59 +105,57 @@ const SettingsPage = () => {
 					};
 
 					// Use functional update to avoid dependency
-					setSnackbarNotices( ( prevNotices ) => [
+					setSnackbarNotices((prevNotices) => [
 						...prevNotices,
 						newNotice,
-					] );
+					]);
 
-					setTimeout( () => {
-						setSnackbarNotices( ( prevNotices ) =>
+					setTimeout(() => {
+						setSnackbarNotices((prevNotices) =>
 							prevNotices.filter(
-								( notice ) => notice.id !== newNotice.id
+								(notice) => notice.id !== newNotice.id
 							)
 						);
-					}, 2000 );
+					}, 2000);
 				} else {
 					// eslint-disable-next-line no-console
-					console.error( 'Failed to save settings:', response );
+					console.error('Failed to save settings:', response);
 				}
-			} );
-		}, 1500 );
-	}, [] ); // Empty dependency array - function never changes
+			});
+		}, 1500);
+	}, []); // Empty dependency array - function never changes
 
-	const handleChange = ( settingKey, value ) => {
-		const newSettings = { ...settings, [ settingKey ]: value };
-		setSettings( newSettings );
-		debouncedUpdateSettings( newSettings );
+	const handleChange = (settingKey, value) => {
+		const newSettings = { ...settings, [settingKey]: value };
+		setSettings(newSettings);
+		debouncedUpdateSettings(newSettings);
 	};
 
 	return (
 		<div className="settings-page">
 			<TabPanel
-				tabs={ formFieldsData.tabs.map( ( tab ) => ( {
+				tabs={formFieldsData.tabs.map((tab) => ({
 					name: tab.id,
 					title: tab.tabControl.label,
-				} ) ) }
+				}))}
 			>
-				{ ( tab ) => (
+				{(tab) => (
 					<div>
-						{ formFieldsData.tabs
-							.find( ( t ) => t.id === tab.name )
-							.tabContent.fields.map( ( field ) => (
-								<PanelRow key={ field.name }>
-									{ field.type === 'toggle' && (
+						{formFieldsData.tabs
+							.find((t) => t.id === tab.name)
+							.tabContent.fields.map((field) => (
+								<PanelRow key={field.name}>
+									{field.type === 'toggle' && (
 										<BaseControl
-											label={ field.label }
-											id={ `wp-rig-control-${ field.name }` } // ID for the label element
-											htmlFor={ `wp-rig-toggle-${ field.name }` } // Links label to toggle
+											label={field.label}
+											id={`wp-rig-control-${field.name}`} // ID for the label element
+											htmlFor={`wp-rig-toggle-${field.name}`} // Links label to toggle
 											__nextHasNoMarginBottom
 										>
 											<FormToggle
-												id={ `wp-rig-toggle-${ field.name }` } // ID for the toggle input
-												checked={
-													!! settings[ field.name ]
-												}
-												onChange={ ( event ) =>
+												id={`wp-rig-toggle-${field.name}`} // ID for the toggle input
+												checked={!!settings[field.name]}
+												onChange={(event) =>
 													handleChange(
 														field.name,
 														event.target.checked
@@ -102,50 +163,47 @@ const SettingsPage = () => {
 												}
 											/>
 										</BaseControl>
-									) }
-									{ field.type === 'select' && (
+									)}
+									{field.type === 'select' && (
 										<SelectControl
-											label={ field.label }
-											value={
-												settings[ field.name ] || ''
+											label={field.label}
+											value={settings[field.name] || ''}
+											onChange={(value) =>
+												handleChange(field.name, value)
 											}
-											onChange={ ( value ) =>
-												handleChange(
-													field.name,
-													value
-												)
-											}
-											options={ field.options }
+											options={field.options}
 											__next40pxDefaultSize
 											__nextHasNoMarginBottom
 										/>
-									) }
-									{ textControlTypes.includes(
-										field.type
-									) && (
+									)}
+									{field.type === 'media' && (
+										<MediaControl
+											field={field}
+											value={settings[field.name] || ''}
+											onChange={(value) =>
+												handleChange(field.name, value)
+											}
+										/>
+									)}
+									{textControlTypes.includes(field.type) && (
 										<TextControl
-											label={ field.label }
-											type={ field.type }
-											value={
-												settings[ field.name ] || ''
-											}
-											onChange={ ( value ) =>
-												handleChange(
-													field.name,
-													value
-												)
+											label={field.label}
+											type={field.type}
+											value={settings[field.name] || ''}
+											onChange={(value) =>
+												handleChange(field.name, value)
 											}
 											__next40pxDefaultSize
 											__nextHasNoMarginBottom
 										/>
-									) }
+									)}
 								</PanelRow>
-							) ) }
+							))}
 					</div>
-				) }
+				)}
 			</TabPanel>
 			<div id="settings-saved">
-				<SnackbarList notices={ snackbarNotices } />
+				<SnackbarList notices={snackbarNotices} />
 			</div>
 		</div>
 	);
@@ -154,11 +212,11 @@ const SettingsPage = () => {
 export default SettingsPage;
 
 const renderSettingsPage = () => {
-	const container = document.getElementById( 'wp-rig-settings-page' );
-	if ( container ) {
-		const root = createRoot( container );
-		root.render( <SettingsPage /> );
+	const container = document.getElementById('wp-rig-settings-page');
+	if (container) {
+		const root = createRoot(container);
+		root.render(<SettingsPage />);
 	}
 };
 
-document.addEventListener( 'DOMContentLoaded', renderSettingsPage );
+document.addEventListener('DOMContentLoaded', renderSettingsPage);

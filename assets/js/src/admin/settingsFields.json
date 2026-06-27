@@ -1,61 +1,56 @@
 {
   "tabs": [
     {
-      "id": "tab1",
+      "id": "hero-slider",
       "tabControl": {
-        "label": "Page 1"
+        "label": "Hero Slider"
       },
       "tabContent": {
         "fields": [
           {
-            "name": "option1",
-            "label": "Option 1",
-            "type": "text"
+            "name": "scng_hero_slide_1_url",
+            "label": "Hero Slide 1 Image",
+            "type": "media"
           },
           {
-            "name": "option2",
-            "label": "Option 2",
-            "type": "text"
+            "name": "scng_hero_slide_2_url",
+            "label": "Hero Slide 2 Image",
+            "type": "media"
           },
           {
-            "name": "option5",
-            "label": "On/Off",
-            "type": "toggle"
+            "name": "scng_hero_slide_3_url",
+            "label": "Hero Slide 3 Image",
+            "type": "media"
           }
         ]
       }
     },
     {
-      "id": "tab2",
+      "id": "footer-social",
       "tabControl": {
-        "label": "Page 2"
+        "label": "Footer Social"
       },
       "tabContent": {
         "fields": [
           {
-            "name": "option3",
-            "label": "Option 3",
-            "type": "email"
-          },
-          {
-            "name": "option4",
-            "label": "Option 4",
+            "name": "scng_facebook_url",
+            "label": "Facebook URL",
             "type": "url"
           },
           {
-            "name": "option6",
-            "label": "Select one",
-            "type": "select",
-            "options": [
-              {
-                "label": "Option 1",
-                "value": "option-1"
-              },
-              {
-                "label": "Option 2",
-                "value": "option-2"
-              }
-            ]
+            "name": "scng_instagram_url",
+            "label": "Instagram URL",
+            "type": "url"
+          },
+          {
+            "name": "scng_youtube_url",
+            "label": "YouTube URL",
+            "type": "url"
+          },
+          {
+            "name": "scng_footer_email",
+            "label": "Footer Email",
+            "type": "email"
           }
         ]
       }
