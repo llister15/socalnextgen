@@ -23,6 +23,17 @@
 	}
 }
 
+body.admin-bar .site-header {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+
+	body.admin-bar .site-header {
+		top: 46px;
+	}
+}
+
 .header-image {
 	margin: 0 auto;
 }
