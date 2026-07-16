@@ -95,7 +95,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		if ( $this->is_primary_sidebar_active() ) {
 			global $template;
 
-			if ( ! in_array( basename( $template ), array( 'front-page.php', '404.php', '500.php', 'offline.php' ), true ) ) {
+			$templates_with_sidebar = array( 'index.php' );
+
+			if ( in_array( basename( $template ), $templates_with_sidebar, true ) ) {
 				$classes[] = 'has-sidebar';
 			}
 		}
