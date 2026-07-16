@@ -7,10 +7,39 @@
 
 namespace WP_Rig\WP_Rig;
 
-$facebook_url  = wp_rig()->get_setting( 'scng_facebook_url', 'https://www.facebook.com/socalnextgenyouthministries' );
-$instagram_url = wp_rig()->get_setting( 'scng_instagram_url' );
-$youtube_url   = wp_rig()->get_setting( 'scng_youtube_url' );
-$footer_email  = wp_rig()->get_setting( 'scng_footer_email', 'info@socalnextgenym.com' );
+$legacy_settings   = get_option( 'wp_rig_theme_settings', array() );
+$legacy_settings   = is_array( $legacy_settings ) ? $legacy_settings : array();
+$facebook_url      = get_theme_mod( 'scng_facebook_url', $legacy_settings['scng_facebook_url'] ?? '' );
+$instagram_url     = get_theme_mod( 'scng_instagram_url', $legacy_settings['scng_instagram_url'] ?? '' );
+$youtube_url       = get_theme_mod( 'scng_youtube_url', $legacy_settings['scng_youtube_url'] ?? '' );
+$footer_email      = get_theme_mod( 'scng_footer_email', $legacy_settings['scng_footer_email'] ?? '' );
+$contact_phone     = get_theme_mod( 'scng_contact_phone', '760-625-2910' );
+$contact_location  = get_theme_mod( 'scng_contact_location', 'Southern California' );
+$footer_credit     = get_theme_mod( 'scng_footer_credit', __( 'Created and designed by Mber Digital', 'socalnextgen' ) );
+$footer_credit_url = get_theme_mod( 'scng_footer_credit_url', '' );
+$next_event        = null;
+
+if ( post_type_exists( 'tribe_events' ) ) {
+	$next_events = get_posts(
+		array(
+			'post_type'      => 'tribe_events',
+			'posts_per_page' => 1,
+			'post_status'    => 'publish',
+			'meta_key'       => '_EventStartDate',
+			'orderby'        => 'meta_value',
+			'order'          => 'ASC',
+			'meta_query'     => array(
+				array(
+					'key'     => '_EventStartDate',
+					'value'   => current_time( 'mysql' ),
+					'compare' => '>=',
+					'type'    => 'DATETIME',
+				),
+			),
+		)
+	);
+	$next_event  = $next_events[0] ?? null;
+}
 
 ?>
 
@@ -19,25 +48,25 @@ $footer_email  = wp_rig()->get_setting( 'scng_footer_email', 'info@socalnextgeny
 		<div class="grid gap-8 md:grid-cols-[1.4fr_0.8fr_1fr_1fr]">
 			<div>
 				<a class="scng-brand mb-4" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<img class="scng-brand__mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="<?php esc_attr_e( 'SoCal NextGen Youth Ministries', 'socalnextgen' ); ?>">
+					<img class="scng-brand__mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="<?php esc_attr_e( 'Socal NextGen Youth Ministries', 'socalnextgen' ); ?>">
 					<span class="scng-brand__text">
-						<span class="scng-brand__name text-white"><?php esc_html_e( 'So Cal NextGen', 'socalnextgen' ); ?></span>
+						<span class="scng-brand__name text-white"><?php esc_html_e( 'Socal NextGen', 'socalnextgen' ); ?></span>
 						<span class="scng-brand__tagline text-white/80"><?php esc_html_e( 'Youth Ministries', 'socalnextgen' ); ?></span>
 					</span>
 				</a>
-				<p class="max-w-xs text-sm leading-6 text-white/75"><?php esc_html_e( 'Building strong believers today to create a strong church tomorrow.', 'socalnextgen' ); ?></p>
+				<p class="max-w-xs text-sm leading-6 text-white/75"><?php esc_html_e( "Building today's generation to create a stronger tomorrow.", 'socalnextgen' ); ?></p>
 				<div class="mt-5 flex gap-3">
 					<?php if ( $facebook_url ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $facebook_url ); ?>" aria-label="<?php esc_attr_e( 'SoCal NextGen on Facebook', 'socalnextgen' ); ?>">f</a>
+						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $facebook_url ); ?>" aria-label="<?php esc_attr_e( 'Socal NextGen on Facebook', 'socalnextgen' ); ?>">f</a>
 					<?php endif; ?>
 					<?php if ( $instagram_url ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $instagram_url ); ?>" aria-label="<?php esc_attr_e( 'SoCal NextGen on Instagram', 'socalnextgen' ); ?>">ig</a>
+						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $instagram_url ); ?>" aria-label="<?php esc_attr_e( 'Socal NextGen on Instagram', 'socalnextgen' ); ?>">ig</a>
 					<?php endif; ?>
 					<?php if ( $youtube_url ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $youtube_url ); ?>" aria-label="<?php esc_attr_e( 'SoCal NextGen on YouTube', 'socalnextgen' ); ?>">yt</a>
+						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $youtube_url ); ?>" aria-label="<?php esc_attr_e( 'Socal NextGen on YouTube', 'socalnextgen' ); ?>">yt</a>
 					<?php endif; ?>
 					<?php if ( $footer_email ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( 'mailto:' . $footer_email ); ?>" aria-label="<?php esc_attr_e( 'Email SoCal NextGen', 'socalnextgen' ); ?>">@</a>
+						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( 'mailto:' . $footer_email ); ?>" aria-label="<?php esc_attr_e( 'Email Socal NextGen', 'socalnextgen' ); ?>">@</a>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -72,24 +101,54 @@ $footer_email  = wp_rig()->get_setting( 'scng_footer_email', 'info@socalnextgeny
 
 			<div>
 				<h2 class="mb-3 text-sm text-white"><?php esc_html_e( 'Upcoming Event', 'socalnextgen' ); ?></h2>
-				<div class="flex gap-3">
-					<img class="h-16 w-20 rounded object-cover" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-ministry.svg' ) ); ?>" alt="">
-					<div>
-						<p class="font-display text-sm font-bold uppercase text-white"><?php esc_html_e( 'NextGen Rally / FAF', 'socalnextgen' ); ?></p>
-						<p class="text-xs text-white/70"><?php esc_html_e( 'March 6-7, 2026', 'socalnextgen' ); ?></p>
-						<a class="scng-link-cta mt-2 text-brand-gold" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'View All Events', 'socalnextgen' ); ?></a>
+				<?php if ( $next_event ) : ?>
+					<div class="flex gap-3">
+						<?php if ( has_post_thumbnail( $next_event ) ) : ?>
+							<a href="<?php echo esc_url( get_permalink( $next_event ) ); ?>" tabindex="-1" aria-hidden="true">
+								<?php
+								echo get_the_post_thumbnail(
+									$next_event,
+									'thumbnail',
+									array(
+										'class' => 'h-16 w-20 rounded object-cover',
+										'alt'   => '',
+									)
+								);
+								?>
+							</a>
+						<?php endif; ?>
+						<div>
+							<p class="font-display text-sm font-bold uppercase text-white"><?php echo esc_html( get_the_title( $next_event ) ); ?></p>
+							<p class="text-xs text-white/70">
+								<?php
+								if ( function_exists( 'tribe_get_start_date' ) ) {
+									echo esc_html( tribe_get_start_date( $next_event->ID, false, 'F j, Y' ) );
+								} else {
+									echo esc_html( mysql2date( 'F j, Y', get_post_meta( $next_event->ID, '_EventStartDate', true ) ) );
+								}
+								?>
+							</p>
+							<a class="scng-link-cta mt-2 text-brand-gold" href="<?php echo esc_url( get_permalink( $next_event ) ); ?>"><?php esc_html_e( 'Event Details', 'socalnextgen' ); ?></a>
+						</div>
 					</div>
-				</div>
+				<?php else : ?>
+					<p class="text-sm text-white/70"><?php esc_html_e( 'No upcoming events are scheduled.', 'socalnextgen' ); ?></p>
+				<?php endif; ?>
+				<a class="mt-3 inline-block text-xs font-bold uppercase text-brand-gold" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'View All Events', 'socalnextgen' ); ?></a>
 			</div>
 
 			<div>
 				<h2 class="mb-3 text-sm text-white"><?php esc_html_e( 'Contact Us', 'socalnextgen' ); ?></h2>
 				<ul class="mb-5 space-y-2 text-sm text-white/75">
-					<li><?php esc_html_e( '(909) 123-4567', 'socalnextgen' ); ?></li>
+					<?php if ( $contact_phone ) : ?>
+						<li><a class="hover:text-brand-gold" href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $contact_phone ) ); ?>"><?php echo esc_html( $contact_phone ); ?></a></li>
+					<?php endif; ?>
 					<?php if ( $footer_email ) : ?>
 						<li><a class="hover:text-brand-gold" href="<?php echo esc_url( 'mailto:' . $footer_email ); ?>"><?php echo esc_html( $footer_email ); ?></a></li>
 					<?php endif; ?>
-					<li><?php esc_html_e( 'Southern California', 'socalnextgen' ); ?></li>
+					<?php if ( $contact_location ) : ?>
+						<li><?php echo esc_html( $contact_location ); ?></li>
+					<?php endif; ?>
 				</ul>
 				<?php
 				get_template_part(
@@ -106,14 +165,20 @@ $footer_email  = wp_rig()->get_setting( 'scng_footer_email', 'info@socalnextgeny
 	</div>
 	<div class="border-t border-white/10 py-4">
 		<div class="scng-container flex flex-col gap-2 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
-			<p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php esc_html_e( 'SoCal NextGen Youth Ministries. All Rights Reserved.', 'socalnextgen' ); ?></p>
-			<div class="flex gap-4">
+			<p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php esc_html_e( 'Socal NextGen Youth Ministries. All Rights Reserved.', 'socalnextgen' ); ?></p>
+			<div class="flex flex-wrap gap-4 sm:justify-end">
 				<?php
 				if ( function_exists( 'the_privacy_policy_link' ) ) {
 					the_privacy_policy_link( '', '' );
 				}
 				?>
-				<a class="hover:text-brand-gold" href="<?php echo esc_url( home_url( '/terms-of-use/' ) ); ?>"><?php esc_html_e( 'Terms of Use', 'socalnextgen' ); ?></a>
+				<?php if ( $footer_credit ) : ?>
+					<?php if ( $footer_credit_url ) : ?>
+						<a class="hover:text-brand-gold" href="<?php echo esc_url( $footer_credit_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $footer_credit ); ?></a>
+					<?php else : ?>
+						<span><?php echo esc_html( $footer_credit ); ?></span>
+					<?php endif; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

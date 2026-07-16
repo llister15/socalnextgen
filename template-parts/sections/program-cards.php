@@ -35,7 +35,7 @@ $programs = array(
 );
 
 ?>
-<section class="bg-white pb-8">
+<section class="bg-white py-8">
 	<div class="scng-container grid gap-5 lg:grid-cols-3">
 		<?php
 		foreach ( $programs as $program ) {

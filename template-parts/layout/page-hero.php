@@ -7,7 +7,7 @@
 
 namespace WP_Rig\WP_Rig;
 
-$eyebrow = $args['eyebrow'] ?? __( 'SoCal NextGen', 'socalnextgen' );
+$eyebrow = $args['eyebrow'] ?? __( 'Socal NextGen', 'socalnextgen' );
 $title   = $args['title'] ?? get_the_title();
 $intro   = $args['intro'] ?? '';
 

@@ -50,7 +50,7 @@ class Component implements Component_Interface {
 		?>
 		<div class="notice notice-error">
 			<p>
-				<strong><?php esc_html_e( 'SoCalNextGen requires The Events Calendar.', 'socalnextgen' ); ?></strong>
+				<strong><?php esc_html_e( 'SocalNextGen requires The Events Calendar.', 'socalnextgen' ); ?></strong>
 				<?php esc_html_e( 'Install and activate it to manage the event calendar experience from WordPress.', 'socalnextgen' ); ?>
 				<a href="<?php echo esc_url( $plugin_search_url ); ?>"><?php esc_html_e( 'Install The Events Calendar', 'socalnextgen' ); ?></a>
 			</p>

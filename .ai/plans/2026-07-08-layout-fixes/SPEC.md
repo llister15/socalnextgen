@@ -5,7 +5,7 @@ Date: 2026-07-08
 
 ## Mission Statement
 
-Fix two global layout bugs in the SoCalNextGen classic WP Rig theme:
+Fix two global layout bugs in the SocalNextGen classic WP Rig theme:
 
 - Keep the footer visually pinned to the bottom of the viewport on pages with little or no content.
 - Offset the sticky site header below the WordPress admin bar when a logged-in user is viewing the frontend.

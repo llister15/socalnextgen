@@ -1,11 +1,11 @@
-# SoCalNextGen Style Guide
+# SocalNextGen Style Guide
 
 Status: Active
 Date: 2026-06-27
 
 ## Design Direction
 
-SoCalNextGen uses a bright Southern California youth-ministry look: white space, deep navy structure, orange action accents, warm sunset gold, coastal blue, and clear ministry photography.
+SocalNextGen uses a bright Southern California youth-ministry look: white space, deep navy structure, orange action accents, warm sunset gold, coastal blue, and clear ministry photography.
 
 ## Colors
 

@@ -94,16 +94,16 @@ class Component implements Component_Interface {
 		}
 
 		$this->create_menu(
-			'SoCal NextGen Primary',
+			'Socal NextGen Primary',
 			'primary',
-			array( 'home', 'about', 'events', 'leadership-hub', 'fine-arts', 'scholarships', 'resources', 'contact' ),
+			array( 'home', 'about', 'leadership-hub', 'fine-arts', 'scholarships', 'resources', 'contact' ),
 			$ids
 		);
 
 		$this->create_menu(
-			'SoCal NextGen Footer Quick Links',
+			'Socal NextGen Footer Quick Links',
 			'footer_quick_links',
-			array( 'about', 'events', 'leadership-hub', 'fine-arts', 'scholarships', 'resources', 'contact' ),
+			array( 'about', 'leadership-hub', 'fine-arts', 'scholarships', 'resources', 'contact' ),
 			$ids
 		);
 
@@ -120,17 +120,12 @@ class Component implements Component_Interface {
 			'home'           => array(
 				'title'    => __( 'Home', 'socalnextgen' ),
 				'template' => 'front-page.php',
-				'content'  => __( 'SoCal NextGen exists to equip youth leaders, empower students, and partner with local churches to fulfill the call of God on the next generation.', 'socalnextgen' ),
+				'content'  => __( 'Socal NextGen exists to equip youth leaders, empower students, and partner with local churches to fulfill the call of God on the next generation.', 'socalnextgen' ),
 			),
 			'about'          => array(
 				'title'    => __( 'About', 'socalnextgen' ),
 				'template' => 'page-about.php',
-				'content'  => __( 'Learn more about the heart, mission, and leadership of SoCal NextGen Youth Ministries.', 'socalnextgen' ),
-			),
-			'events'         => array(
-				'title'    => __( 'Events', 'socalnextgen' ),
-				'template' => 'page-events.php',
-				'content'  => __( 'Discover upcoming gatherings, rallies, conferences, camps, and leadership moments.', 'socalnextgen' ),
+				'content'  => __( 'Learn more about the heart, mission, and leadership of Socal NextGen Youth Ministries.', 'socalnextgen' ),
 			),
 			'leadership-hub' => array(
 				'title'    => __( 'Leadership Hub', 'socalnextgen' ),
@@ -155,12 +150,12 @@ class Component implements Component_Interface {
 			'gallery'        => array(
 				'title'    => __( 'Gallery', 'socalnextgen' ),
 				'template' => 'page-gallery.php',
-				'content'  => __( 'Photos and moments from the SoCal NextGen community.', 'socalnextgen' ),
+				'content'  => __( 'Photos and moments from the Socal NextGen community.', 'socalnextgen' ),
 			),
 			'contact'        => array(
 				'title'    => __( 'Contact', 'socalnextgen' ),
 				'template' => 'page-contact.php',
-				'content'  => __( 'Stay connected with SoCal NextGen Youth Ministries.', 'socalnextgen' ),
+				'content'  => __( 'Stay connected with Socal NextGen Youth Ministries.', 'socalnextgen' ),
 			),
 		);
 	}

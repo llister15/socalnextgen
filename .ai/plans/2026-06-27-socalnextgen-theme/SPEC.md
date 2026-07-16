@@ -1,532 +1,696 @@
-# SoCalNextGen Theme Specification
+# SocalNextGen Theme — Updated Development Plan
 
-Status: Approved, implementation in progress
-Date: 2026-06-27
-Feature Slug: socalnextgen-theme
+**Status:** Approved for implementation  
+**Project:** SocalNextGen Youth Ministries  
+**Theme Base:** WP Rig classic theme  
+**Feature Slug:** `socalnextgen-theme`
 
-## Mission Statement
+## 1. Project Direction
 
-Rebrand the WP Rig theme as `SoCalNextGen` and build a custom classic WordPress theme for SoCal NextGen Youth Ministries. The attached light-theme mockup is the foundation for the actual homepage (`front-page.php`) and the visual system for the rest of the website.
+Build a custom classic WordPress theme using WP Rig and Tailwind CSS.
 
-The finished theme will use custom WordPress templates, reusable WP Rig template parts/components, and Tailwind CSS. It will not use page builders or Advanced Custom Fields.
+The theme will:
 
-The theme will create its required starter pages and menus on activation without overwriting existing content. It will also surface required-plugin notices in wp-admin for plugin-backed features.
+- Use reusable PHP template parts and WP Rig components.
+- Avoid page builders.
+- Avoid Advanced Custom Fields.
+- Use WordPress pages, menus, the Theme Customizer, and plugin-owned content where appropriate.
+- Keep page content editable through the WordPress editor.
+- Use The Events Calendar for all event content through the native `tribe_events` post type.
+- Use **Socal** as one word throughout the codebase, theme labels, documentation, and visible website content.
+- Use the public-facing brand name **SoCal NextGen YM** where required by the customer.
 
-## Current Project Context
+## 2. Primary Navigation
 
-- Required configuration check: `config/config.json` is not present in this checkout.
-- Available configuration fallback: `config/config.default.json` already defines:
-  - `theme.slug`: `socalnextgen`
-  - `theme.name`: `SoCalNextGen`
-  - `theme.themeType`: `classic`
-  - `theme.enableBlocks`: `false`
-- Current identity files already partially reflect SoCalNextGen:
-  - `style.css`
-  - `readme.txt`
-  - `config/config.default.json`
-- Root `front-page.php` does not currently exist.
-- `screenshot.png` exists and is `1200 x 900`; it must be replaced with the logo-based theme screenshot after approval.
-- Tailwind CSS is not currently installed/configured in `package.json`, and there is no `tailwind.config.*` file.
-- Existing WP Rig CSS source files live in `assets/css/src/` and are compiled by `build-css.js`.
-- Starter content is managed by `inc/Starter_Content/Component.php`.
-- Required plugin notices are managed by `inc/Plugin_Dependencies/Component.php`.
-- Hero slider image URLs and footer social links are managed through the React-based WP Rig Settings page.
-
-## Clarifications Documented
-
-The user has confirmed:
-
-- The attached light-theme mockup should become the actual homepage, not only a style guide.
-- The homepage should be the foundation for the design language of the entire site.
-- The site should be a custom classic WordPress theme.
-- No page builders.
-- No ACF.
-- Tailwind CSS should be used.
-- The homepage should include:
-  - Hero section
-  - Mission statement
-  - Four Pillars
-  - Upcoming Events
-  - Leadership Hub preview
-  - Fine Arts preview
-  - Scholarship preview
-  - Gallery preview
-  - Final Call-to-Action
-  - Footer
-- Remaining pages should each have custom templates:
-  - About
-  - Events
-  - Event Details
-  - Leadership Hub
-  - Fine Arts
-  - Scholarship
-  - Gallery
-  - Contact
-
-## Open Approval Questions
-
-These questions do not block drafting this spec, but they should be answered before implementation begins:
-
-1. Events will be managed as a custom post type, with homepage preview compatibility for The Events Calendar when its `tribe_events` post type is available.
-2. Gallery images will come from the WordPress Media Library/editor content first. Facebook page photo pulls are supported through the Graph API when `SCNG_FACEBOOK_PAGE_ID` and `SCNG_FACEBOOK_ACCESS_TOKEN` are defined; otherwise the gallery preview links to the Facebook page and uses placeholders if no local media exists.
-3. Contact will start with a simple contact/info layout.
-4. Homepage will be a hybrid: `front-page.php` controls the main section structure, with editable content areas where practical.
-5. Navigation labels are: Home, About, Events, Leadership Hub, Fine Arts, Scholarships, Resources, Contact.
-6. Use "Scholarships" plural for navigation and page/template naming.
-7. The provided circular NextGen logo is the production logo for header branding and `screenshot.png`.
-8. Do not add starter images unless they are clearly placeholders.
-
-## Context Completeness And Confidence
-
-- Context completeness score: 96%
-- Implementation confidence score: 96%
-
-Confidence rationale: the design intent, page list, theme type, styling technology, and implementation constraints are clear. Remaining questions are content/data-source decisions and naming details that can be resolved before coding individual templates.
-
-## Design System
-
-The theme will use the approved clean light homepage mockup as the visual source of truth. The target is the professional church/ministry layout with a white header, light hero, navy/orange typography, white and navy section alternation, restrained cards, and subtle shadows only where useful.
-
-Do not use the later decorative promotional screenshot as the front-page target. Avoid blurred decorative lines, floating hero cards, excessive shadows, oversized header logos, random colored backgrounds, and overdone gradients.
-
-Global body, page, and main content backgrounds must remain white or light. Do not apply automatic black/dark backgrounds from `prefers-color-scheme`; intentional navy brand sections such as the pillars, page hero bands, program cards, and footer are allowed.
-
-### Brand Personality
-
-- Youth ministry focused.
-- Bright, warm, energetic, welcoming, and structured.
-- Southern California visual cues: sunrise/sunset warmth, ocean blue, clean white space, palm/coastal imagery, and bold ministry/event typography.
-
-### Color Palette
-
-Tailwind tokens should be extended with semantic brand colors:
-
-- `brand-navy`: deep navy for headings, navigation, footer, and high-contrast text.
-- `brand-orange`: vivid orange for active navigation, primary CTAs, emphasis text, and date badges.
-- `brand-gold`: warm gold/yellow for accents and icon backgrounds.
-- `brand-sky`: bright coastal blue for wave/accent moments.
-- `brand-green`: ministry/service accent used for scholarship/service cards.
-- `brand-purple`: creative/fine-arts accent.
-- `brand-white`: clean page background.
-- `brand-muted`: soft gray-blue text and borders.
-
-Suggested initial values:
-
-```js
-colors: {
-  brand: {
-    navy: '#071b3a',
-    orange: '#ff6a00',
-    gold: '#ffd23f',
-    sky: '#15a9d6',
-    green: '#067a3d',
-    purple: '#32156b',
-    white: '#ffffff',
-    muted: '#64748b',
-    line: '#d9e2ec'
-  }
-}
-```
-
-### Typography
-
-- Headings: condensed, bold, uppercase display style similar to the mockup.
-- Body: readable sans-serif for ministry information, cards, and long-form page text.
-- Script accent: limited use for words like "Heart", "Basics", and "Call" in the hero.
-
-Implementation approach:
-
-- Prefer locally enqueued or self-hosted fonts if available.
-- If remote fonts are used, they must be documented in the style guide and loaded through the existing `Fonts` component or a WP Rig-approved enqueue path.
-- Use Tailwind `fontFamily` tokens:
-  - `display`
-  - `body`
-  - `script`
-
-### Spacing And Layout
-
-- Maximum content width: approximately `1180px`.
-- Subpage hero and editable content sections should use the full centered site container, not narrow left-aligned content columns.
-- Section spacing:
-  - Desktop: generous vertical rhythm, about `64px` to `96px`.
-  - Tablet: about `48px` to `72px`.
-  - Mobile: about `32px` to `48px`.
-- Use full-width white or lightly tinted bands instead of nested decorative cards.
-- Cards should use restrained radius, ideally `8px` or less, with subtle shadow and strong image/date composition where relevant.
-
-### Buttons
-
-Primary button:
-
-- Orange background.
-- White text.
-- Bold uppercase label.
-- Slight radius.
-- Icon optional.
-- Hover/focus state darkens orange and shows an accessible outline.
-
-Secondary button:
-
-- White or transparent background.
-- Navy border.
-- Navy text.
-- Used for "Stay Connected" or lower-priority actions.
-
-Text link CTA:
-
-- Orange text.
-- Arrow icon.
-- Used for "View Full Calendar", "View Gallery", and similar section-level actions.
-
-### Cards
-
-Event card:
-
-- Image header.
-- Date badge in top-left or overlapping image.
-- Title, short descriptor, and location.
-- Compact, scannable layout.
-
-Feature preview card:
-
-- Strong colored background based on section identity.
-- Icon at left or top.
-- White text.
-- Outline button for secondary navigation.
-
-Pillar item:
-
-- Circular icon badge.
-- Short uppercase title.
-- One concise supporting sentence.
-
-### Icons
-
-- Use an icon set already present or add a consistent lightweight icon strategy.
-- Preferred approach: use inline SVG icons from a curated local set or a small package if approved during implementation.
-- Icons needed:
-  - Calendar
-  - Users/community
-  - Prayer/hands
-  - Book/Bible
-  - Fellowship/group
-  - Service/heart
-  - Leadership/network
-  - Fine Arts/palette
-  - Scholarship/graduation cap
-  - Mail/phone/location/social
-
-### Imagery
-
-- Header logo should use the provided circular NextGen logo.
-- `screenshot.png` should be replaced with a WordPress-compatible screenshot based on the logo/brand.
-- Hero imagery uses a lightweight slider. Admins can set slide image URLs in WP Rig Settings with `scng_hero_slide_1_url`, `scng_hero_slide_2_url`, and `scng_hero_slide_3_url`. If settings are empty, the theme looks for files matching `assets/images/hero-slide-*.jpg`, `.jpeg`, `.png`, or `.webp`; `assets/images/HeroImage.jpg` is the final fallback. The overlay should remain subtle so more of the picture is visible while preserving readable text.
-- Gallery/event imagery should use clear ministry/event photos, Facebook page photos when API credentials are configured, or generated placeholders approved by the user.
-
-## Page Hierarchy
-
-Primary navigation:
+The desktop and mobile navigation order must be:
 
 1. Home
 2. About
-3. Events
-4. Leadership Hub
-5. Fine Arts
-6. Scholarships
-7. Resources
+3. Initiatives
+4. Resources
+5. Scholarships
+6. Giving
+7. Merch
 8. Contact
+9. Stay Connected
 
-Requested custom templates:
+### Navigation Rules
 
-- Home (`front-page.php`)
-- About (`page-about.php`)
-- Events (`page-events.php`)
-- Event Details (`single-scng_event.php` for the theme custom post type, with The Events Calendar template compatibility when the plugin is installed)
-- Leadership Hub (`page-leadership-hub.php`)
-- Fine Arts (`page-fine-arts.php`)
-- Scholarships (`page-scholarships.php`)
-- Gallery (`page-gallery.php`)
-- Contact (`page-contact.php`)
-- Weekly Services archive (`archive-weekly-service.php`)
-- Weekly Service detail (`single-weekly-service.php`)
+- Rename **Fine Arts** to **Initiatives**.
+- Rename **Leadership Hub** to **Resources**.
+- Do not keep a second separate Resources navigation item.
+- Do not create or add an Events page to the navigation.
+- The Events Calendar owns the `/events/` route.
+- Merch may link to an external merchandise website.
+- Verify the same order on desktop and mobile.
+- Treat **Stay Connected** as the final highlighted navigation action.
 
-Weekly Services custom post type:
+## 3. Page Architecture
 
-- Post type key: `weekly-service`
-- Label: Weekly Services
-- Supports: title, editor, featured image, excerpt, revisions, custom fields
-- Meta groups: Service Information, Schedule, Location, Livestream, Pastor/Speaker, Ministry Information, Call to Action, Display Settings
-- Featured active services can appear on the homepage through `template-parts/sections/weekly-services-preview.php`.
-
-Resources uses `page-resources.php`.
-
-On theme activation, create or reuse these pages by slug:
+Create or reuse these WordPress pages during theme activation:
 
 - `home`
 - `about`
-- `events`
-- `leadership-hub`
-- `fine-arts`
-- `scholarships`
+- `initiatives`
 - `resources`
-- `gallery`
+- `scholarships`
+- `giving`
+- `merch`
 - `contact`
+- `stay-connected`
+- `gallery`
 
-Set `home` as the static front page and create/assign these menus if no menu is already assigned:
-
-- `Primary`: Home, About, Events, Leadership Hub, Fine Arts, Scholarships, Resources, Contact
-- `Footer Quick Links`: About, Events, Leadership Hub, Fine Arts, Scholarships, Resources, Contact
-
-## Homepage Structure
-
-`front-page.php` will include:
-
-1. Hero
-   - Header/navigation above.
-   - Large So Cal NextGen Youth Ministries headline.
-   - Tagline: "Back to Heart. Back to Basics. Back to the Call."
-   - Primary CTA: View Upcoming Events.
-   - Secondary CTA: Stay Connected.
-   - Hero image with youth/cross/sunset visual.
-
-2. Mission Statement
-   - Icon badge.
-   - Bold statement: "Building strong believers today to create a strong church tomorrow."
-   - Supporting ministry paragraph.
-
-3. Four Pillars
-   - Prayer
-   - Word
-   - Fellowship
-   - Service
-
-4. Upcoming Events
-   - Four event cards.
-   - Section CTA to full calendar/events page.
-
-5. Preview Cards
-   - Leadership Hub
-   - Fine Arts
-   - Scholarship Program
-
-6. Gallery Preview
-   - Horizontal responsive image grid.
-   - CTA to Gallery.
-
-7. Final Call-to-Action
-   - Strong invitation to connect, attend, or partner.
-   - Primary CTA to Contact/Stay Connected.
-
-8. Footer
-   - Logo and summary.
-   - Social links managed in WP Rig Settings: `scng_facebook_url`, `scng_instagram_url`, `scng_youtube_url`, and `scng_footer_email`.
-   - Quick links from a WordPress-managed `Footer Quick Links` menu location.
-   - Upcoming event teaser.
-   - Contact details.
-   - Social links.
-   - Legal links.
-
-## WordPress Template Architecture
-
-The theme remains a classic WP Rig theme.
+Set `home` as the static front page.
 
 ### Root Templates
 
-Planned root templates:
+Create:
 
 - `front-page.php`
 - `page-about.php`
+- `page-initiatives.php`
+- `page-resources.php`
+- `page-scholarships.php`
+- `page-giving.php`
+- `page-merch.php`
+- `page-contact.php`
+- `page-stay-connected.php`
+- `page-gallery.php`
+
+Do not create:
+
 - `page-events.php`
 - `single-scng_event.php`
 - `archive-scng_event.php`
-- `page-leadership-hub.php`
-- `page-fine-arts.php`
-- `page-scholarships.php`
-- `page-resources.php`
-- `page-gallery.php`
-- `page-contact.php`
 
-### Template Parts
+The Events Calendar controls the event archive and single-event routes.
 
-Use `template-parts/` for reusable sections instead of duplicating markup:
+## 4. Theme Activation and Starter Content
 
-- `template-parts/layout/page-hero.php`
-- `template-parts/sections/mission.php`
-- `template-parts/sections/pillars.php`
-- `template-parts/sections/events-preview.php`
-- `template-parts/sections/program-cards.php`
-- `template-parts/sections/gallery-preview.php`
-- `template-parts/sections/final-cta.php`
-- `template-parts/cards/event-card.php`
-- `template-parts/cards/program-card.php`
-- `template-parts/cards/pillar-card.php`
-- `template-parts/components/button.php`
-- `template-parts/components/icon.php`
+Update `inc/Starter_Content/Component.php` so activation:
 
-### Components
+- Creates only the approved pages.
+- Reuses existing pages by slug.
+- Never overwrites existing page content.
+- Assigns the Home page as the static front page.
+- Creates the Primary and Footer menus only when needed.
+- Does not create an Events page.
+- Does not register a custom event post type.
+- Does not add Events to starter menus.
 
-New WP Rig PHP components should be scaffolded with `npm run create-rig-component` when they own behavior beyond template markup.
+### Primary Menu
 
-Likely components:
+- Home
+- About
+- Initiatives
+- Resources
+- Scholarships
+- Giving
+- Merch
+- Contact
+- Stay Connected
 
-- `Events` if events are approved as a custom post type.
-- `Starter_Content` to create required pages/menus on activation.
-- `Plugin_Dependencies` to notify admins when required plugins are missing.
+### Footer Quick Links
 
-Required plugins:
+- About
+- Initiatives
+- Resources
+- Scholarships
+- Giving
+- Merch
+- Contact
+- Stay Connected
 
-- The Events Calendar (`the-events-calendar/the-events-calendar.php`) is required for the full calendar-management experience. The theme keeps the `scng_event` CPT fallback for resilience, but wp-admin should show an actionable notice until the plugin is installed and active.
+## 5. Homepage Structure
 
-Do not manually create files in `inc/` until the implementation plan confirms which components are needed and scaffolding is run through the WP Rig tool.
+`front-page.php` will contain the following sections in this order.
 
-### Page Content Priority
+### 5.1 Hero Slider
 
-WP editor content should remain available for page-specific body content where reasonable. The homepage and custom landing templates may include structured theme-controlled sections, but long-form content areas should call the page content when it supports maintainability.
+- Full-width responsive hero slider.
+- Managed from the WordPress Theme Customizer.
+- Supports desktop and optional mobile images.
+- Displays customer-approved youth ministry messaging.
+- Includes primary and secondary CTA buttons.
+- Must preserve image visibility while maintaining readable text contrast.
 
-Recommended hybrid:
+### 5.2 Mission Statement
 
-- Use template-controlled hero/section structure for the designed experience.
-- Use `the_content()` in page templates for editable introductory/body areas.
-- Avoid ACF; if content needs structured editing later, prefer native blocks only if block support is enabled in a future phase, or use core WordPress data structures.
+Replace the old message with:
 
-## Tailwind Component Organization
+> Building today's generation to create a stronger tomorrow.
 
-Tailwind must be integrated into the WP Rig build in a way that preserves existing scripts and validation.
+Supporting copy should be youth-focused, welcoming, and inclusive rather than limited only to church members.
 
-### Planned Files
+### 5.3 Four Pillars
 
-- `tailwind.config.js`
-- PostCSS/Tailwind integration in the CSS build path, or a dedicated Tailwind input/output path documented during implementation.
-- `assets/css/src/global.css` remains the global stylesheet entry.
-- Existing partials may remain for WP Rig base styles while Tailwind utilities/components handle the new system.
+Keep the Four Pillars section with:
 
-### Tailwind Layers
+- Prayer
+- Work
+- Fellowship
+- Service
 
-Use Tailwind layers for project conventions:
+### 5.4 Upcoming Events
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+- Query upcoming events directly from `tribe_events`.
+- Use The Events Calendar APIs or helpers where available.
+- Order by the event start date.
+- Display up to four upcoming events.
+- Show featured image, event title, date, location, and CTA.
+- Link to the plugin-managed `/events/` archive.
+- Support event registration links when available.
+- Show a graceful empty state when no upcoming events exist.
+- Remain error-free when The Events Calendar is inactive.
 
-@layer base {
-  /* typography, body, headings, focus defaults */
-}
+### 5.5 Initiatives Preview
 
-@layer components {
-  /* .scng-button, .scng-card, .scng-section, .scng-container */
-}
+Display previews for:
 
-@layer utilities {
-  /* small brand-specific helpers only when needed */
-}
-```
+- Fine Arts
+- Youth Alive
+- Speed the Light
+- AG Athletics
 
-### Naming Strategy
+Each preview should link to the Initiatives page or a relevant section anchor.
 
-Reusable classes should use a clear project prefix:
+### 5.6 Resources Preview
 
-- `.scng-container`
-- `.scng-section`
-- `.scng-button`
-- `.scng-button-primary`
-- `.scng-button-secondary`
-- `.scng-card`
-- `.scng-event-card`
-- `.scng-program-card`
-- `.scng-pillars-grid`
-- `.scng-page-hero`
+Replace the old Leadership Hub preview with Resources.
 
-This keeps templates readable and avoids massive class strings in repeated PHP partials.
+Possible content:
 
-## Responsive Behavior
+- Ministry training
+- Leadership tools
+- Downloadable documents
+- Resource categories
+
+### 5.7 Scholarships Preview
+
+- Scholarship summary.
+- Application CTA.
+- Link to the Scholarships page.
+
+### 5.8 Sponsors
+
+- Horizontal scrolling sponsor logo section.
+- Sponsor logos may be clickable.
+- Pause movement on hover and keyboard focus.
+- Respect reduced-motion preferences.
+- Allow sponsor logos and URLs to be managed from WordPress.
+
+### 5.9 Gallery / Social Photos
+
+- Homepage gallery or slider.
+- Use approved Facebook and Instagram photos.
+- Clean and optimize images before upload.
+- Prefer locally stored Media Library images for performance and reliability.
+- Social API integrations may be added where credentials are available.
+- Provide a fallback when external social feeds are unavailable.
+
+### 5.10 Community Cards
+
+Cards shown above the **From Our Community** section must use:
+
+- White headings.
+- White body text.
+- White metadata.
+- White links or accessible high-contrast link styles.
+- No muted gray or navy text on colored or image-backed cards.
+
+### 5.11 Final CTA
+
+Replace the old “Find Your…” wording with:
+
+> Let us build the next generation together.
+
+Add a **Stay Connected** CTA button linking to the Stay Connected page.
+
+### 5.12 Footer
+
+Include:
+
+- Logo.
+- Short ministry summary.
+- Footer navigation.
+- Phone number.
+- Verified email address.
+- Social links.
+- Legal links.
+- Optional upcoming-event teaser.
+
+## 6. Theme Customizer
+
+Add a dedicated **SocalNextGen Theme Options** panel to the native WordPress Theme Customizer.
+
+### 6.1 Hero Slider Section
+
+Support at least five slides.
+
+Each slide includes:
+
+- Enable/disable toggle.
+- Desktop image using a Media Library image control.
+- Optional mobile image.
+- Heading.
+- Subheading.
+- Description.
+- Primary button text.
+- Primary button URL.
+- Secondary button text.
+- Secondary button URL.
+- Slide order.
+
+### 6.2 Hero Slider Global Controls
+
+Add controls for:
+
+- Autoplay on/off.
+- Transition speed.
+- Slide duration.
+- Pause on hover.
+- Loop slides.
+- Navigation arrows.
+- Pagination dots.
+- Overlay color.
+- Overlay opacity.
+
+### 6.3 Hero Slider Requirements
+
+- Use native `WP_Customize_Image_Control` or `WP_Customize_Media_Control`.
+- Do not require pasted image URLs.
+- Use Media Library attachment data.
+- Use desktop image as the mobile fallback.
+- Use image alt text from the Media Library.
+- Skip disabled or incomplete slides.
+- Provide a default fallback hero when no slides are configured.
+- Support keyboard controls.
+- Respect `prefers-reduced-motion`.
+- Ensure controls and text meet accessibility contrast requirements.
+
+### 6.4 Additional Customizer Sections
+
+Create sections for:
+
+#### Contact
+
+- Phone number.
+- Email address.
+- Address.
+- Office hours.
+
+Default customer phone:
+
+`760-625-2910`
+
+#### Social Media
+
+- Facebook URL.
+- Instagram URL.
+- YouTube URL.
+- Optional TikTok URL.
+
+Public-facing social branding:
+
+**SoCal NextGen YM**
+
+#### Giving
+
+- Online giving URL.
+- Giving QR code image.
+- Giving introduction text.
+
+#### Merch
+
+- External merchandise website URL.
+- Button label.
+- Open in new tab option.
+
+#### Sponsors
+
+- Sponsor logos.
+- Sponsor destination URLs.
+- Sponsor order.
+- Sponsor visibility.
+
+#### Homepage CTA
+
+- CTA heading.
+- CTA supporting text.
+- Button label.
+- Button URL.
+
+## 7. Initiatives Page
+
+Build `page-initiatives.php` with reusable sections for:
+
+### Fine Arts
+
+- Program summary.
+- Festival information.
+- Registration or event CTA.
+
+### Youth Alive
+
+- Program summary.
+- Participation information.
+- Contact or resource CTA.
+
+### Speed the Light
+
+- Program summary.
+- Giving or participation CTA.
+
+### AG Athletics
+
+- Basketball tournament information.
+- Volleyball tournament information.
+- Registration links.
+- Featured images.
+
+Each initiative should be independently linkable through section IDs.
+
+## 8. Resources Page
+
+`page-resources.php` replaces Leadership Hub.
+
+Include:
+
+- Ministry training resources.
+- Leadership development content.
+- Downloadable documents.
+- Links to external ministry tools.
+- Optional resource categories.
+- Clear file names, descriptions, and download actions.
+- WordPress editor content for future additions.
+
+Do not create or retain a separate Leadership Hub navigation item or page template.
+
+## 9. Scholarships Page
+
+Build `page-scholarships.php` with:
+
+- Scholarship overview.
+- Eligibility information.
+- Deadlines.
+- Requirements.
+- Application instructions.
+- Scholarship application form.
+- Confirmation message.
+- Email notifications.
+- Spam protection.
+- Mobile-friendly field layout.
+
+Final content and form fields depend on information from Crystal.
+
+## 10. Giving Page
+
+Build `page-giving.php` with:
+
+- Giving introduction.
+- Multiple giving options.
+- Giving QR code.
+- Online giving button.
+- External giving platform link.
+- Optional giving FAQ.
+- Clear external-link behavior.
+
+## 11. Merch
+
+Build `page-merch.php` as a lightweight branded landing page that links to the external merchandise store.
+
+Include:
+
+- Short merchandise introduction.
+- Featured visual.
+- Shop Merch button.
+- External store link from the Theme Customizer.
+- Optional automatic redirect only if later approved.
+
+## 12. Stay Connected
+
+Build `page-stay-connected.php` with:
+
+- Network churches list.
+- Youth ministries.
+- Church contact information.
+- Ministry network explanation.
+- Join/connect CTA.
+- Contact or interest form if required.
+
+Final directory information depends on the client-provided network churches list.
+
+## 13. Events Integration
+
+Use The Events Calendar exclusively.
+
+### Requirements
+
+- Use the `tribe_events` post type.
+- Do not register a theme event CPT.
+- Do not create an Events page.
+- Do not create a `page-events.php` template.
+- Style plugin archive and single-event views through supported plugin hooks, CSS, and approved template overrides.
+- Verify event detail pages.
+- Require a featured image for customer-created events where practical.
+- Support event registration links or forms.
+
+### Initial Events
+
+Add when customer information is available:
+
+- Fine Arts Festival.
+- Basketball Tournament.
+- Volleyball Tournament.
+
+## 14. Forms
+
+Forms may be provided by an approved forms plugin.
+
+Required forms:
+
+### Scholarship Application
+
+- Required application fields.
+- Confirmation message.
+- Admin email notification.
+- Applicant confirmation email when available.
+- Spam protection.
+- Mobile-friendly layout.
+
+### Event Registration
+
+- Event selection or event-specific context.
+- Attendee information.
+- Required fields.
+- Confirmation message.
+- Email notifications.
+- Spam protection.
+- Mobile-friendly layout.
+
+### Contact Form
+
+- Verify recipient email.
+- Verify confirmation behavior.
+- Test validation and spam protection.
+
+## 15. Media and Images
+
+- Optimize all uploaded images.
+- Use WebP where appropriate.
+- Retain original quality for logos and key promotional artwork.
+- Add featured images to all events.
+- Add sponsor logos.
+- Add homepage gallery images.
+- Provide descriptive alt text.
+- Avoid uploading unnecessarily oversized images.
+- Recommended desktop hero width: at least 1600 pixels.
+- Recommended hero aspect ratio: approximately 16:9.
+
+## 16. Branding and Content Rules
+
+- Use **Socal** as one word in internal theme naming, code comments, filenames, settings, and technical documentation.
+- Use **SoCal NextGen YM** for customer-approved public-facing social branding.
+- Replace outdated homepage messaging.
+- Make copy more youth-focused and inclusive.
+- Review the About page.
+- Review all page headings and CTA wording.
+- Verify terminology is consistent across desktop, mobile, footer, forms, and metadata.
+
+## 17. Contact Information
+
+Update the primary contact phone to:
+
+**Ben — 760-625-2910**
+
+Also verify:
+
+- Public email address.
+- Contact form destination.
+- Footer contact details.
+- Mobile click-to-call behavior.
+
+## 18. Responsive and Accessibility Requirements
 
 ### Desktop
 
-- Header: horizontal navigation with logo left and CTA right.
-- Hero: text anchored left with large background/hero image extending right/full width.
-- Mission: icon, statement, and paragraph in a horizontal layout.
-- Pillars: four columns.
-- Events: four-column card grid.
-- Preview cards: three columns.
-- Gallery: five-item horizontal grid.
-- Footer: multi-column layout.
+- Full navigation.
+- Four-column event layout where space permits.
+- Horizontal sponsor carousel.
+- Multi-column footer.
 
 ### Tablet
 
-- Header: navigation may wrap or switch to mobile menu depending on available width.
-- Hero: preserve image impact; text remains readable with a clean, subtle overlay as needed.
-- Pillars: two-by-two grid.
-- Events: two-column grid.
-- Preview cards: stacked or two-column depending on width.
-- Footer: two-column layout.
+- Responsive navigation.
+- Two-column cards where appropriate.
+- Controlled hero text width.
+- Touch-friendly slider controls.
 
 ### Mobile
 
-- Header: compact logo and mobile menu.
-- Hero: stacked or background image with a clean readability overlay; CTA buttons stack.
-- Typography scales down without viewport-based font sizing.
-- Pillars: single column or two compact columns if readable.
-- Events: single-column cards.
-- Preview cards and gallery: single-column/scroll-safe layout.
-- Footer: single column.
+- Compact header and menu.
+- Stacked CTA buttons.
+- Single-column event cards.
+- Swipe-safe slider.
+- Readable text over images.
+- Mobile-friendly forms.
 
-Accessibility requirements:
+### Accessibility
 
-- All text/image overlays must meet WCAG contrast.
-- All CTAs and nav controls need visible focus states.
-- Skip link remains available.
-- Images need meaningful alt text or empty alt when decorative.
-- Reduced-motion preference must be honored for animations.
+- Visible keyboard focus states.
+- Skip link.
+- Meaningful image alt text.
+- Accessible form labels and errors.
+- WCAG-compliant contrast.
+- Reduced-motion support.
+- Keyboard-operable sliders and carousels.
 
-## Implementation Plan After Approval
+## 19. Implementation Phases
 
-1. Confirm open approval questions.
-2. Update or create `.ai/STYLE-GUIDE.md` to match this design system.
-3. Create `config/config.json` with project overrides if approved, rather than relying only on `config/config.default.json`.
-4. Replace `screenshot.png` with a logo-based WordPress theme screenshot.
-5. Install/configure Tailwind CSS inside the WP Rig build.
-6. Add Tailwind tokens and component classes.
-7. Build shared template parts.
-8. Implement `front-page.php`.
-9. Implement remaining templates page by page.
-10. Add The Events Calendar compatibility where the plugin is active, while preserving the theme `scng_event` CPT fallback.
-11. Configure Facebook Graph API credentials when page photo pulls are required in production.
-12. Run builds and validation after each major phase.
+### Phase 1 — Foundation
 
-## Verification Plan
+- Confirm WP Rig configuration.
+- Standardize Socal naming.
+- Configure Tailwind.
+- Build design tokens.
+- Build header and footer.
+- Register menus.
+- Update starter pages.
+- Add Theme Customizer architecture.
 
-Required before final submission:
+### Phase 2 — Navigation and Core Pages
 
-- `npm run build`
-- `npm run lint:css`
-- `npm run lint:js`
-- `npm run test:e2e`
-- `npm run test:e2e:screenshot`
-- `npm run ai:check`
+- Finalize desktop/mobile navigation.
+- Build About.
+- Build Initiatives.
+- Build Resources.
+- Build Scholarships.
+- Build Giving.
+- Build Merch.
+- Build Contact.
+- Build Stay Connected.
 
-Visual verification:
+### Phase 3 — Homepage
 
-- Desktop homepage screenshot.
-- Tablet viewport screenshot.
-- Mobile viewport screenshot.
-- Header/navigation interaction check.
-- CTA focus/hover state check.
+- Build Customizer-powered hero slider.
+- Update mission statement.
+- Update Four Pillars.
+- Build `tribe_events` preview.
+- Build Initiatives preview.
+- Build Resources preview.
+- Build Scholarships preview.
+- Build Sponsors.
+- Build Gallery.
+- Fix Community card text contrast.
+- Build final CTA.
 
-Bundle verification:
+### Phase 4 — Integrations and Forms
 
-- Confirm `screenshot.png` is included by existing export settings.
-- If new root-level production folders are added, update export config according to the Theme Bundling skill.
+- Style The Events Calendar.
+- Add event data when received.
+- Configure event registration.
+- Configure scholarship form.
+- Add Giving QR code.
+- Configure social links.
+- Add gallery images.
+- Add sponsor logos.
+- Configure Merch URL.
 
-## Approved Implementation Updates
+### Phase 5 — QA and Launch Preparation
 
-- Hero slider settings should use Media Library image pickers in WP Rig Settings. The settings continue storing image URLs for frontend simplicity, but editors choose or upload images through WordPress media controls instead of manually pasting URLs.
+- Test desktop, tablet, and mobile.
+- Verify navigation.
+- Verify forms.
+- Verify event archive and details.
+- Test hero slider.
+- Test sponsor carousel.
+- Check image optimization.
+- Check accessibility.
+- Check SEO titles and descriptions.
+- Check performance.
+- Verify external links.
+- Prepare client review.
 
-## Approval Gate
+## 20. Client Dependencies
 
-No source implementation should begin until this `SPEC.md` is approved by the user. Approval should explicitly confirm:
+### Waiting on Ben
 
-- Tailwind integration is acceptable.
-- The homepage structure matches the mockup.
-- The page/template list is correct.
-- The remaining open approval questions have acceptable answers or approved assumptions.
+- Updated event calendar.
+- Basketball tournament information.
+- Volleyball tournament information.
+- Event featured images.
+- Verified social links.
+- Verified email address.
+
+### Waiting on Crystal
+
+- Scholarship information.
+- Scholarship application fields.
+- Giving QR code.
+- Resources content.
+- Network churches list.
+- Youth ministry contacts.
+
+## 21. Completion Target
+
+The previous July 18 milestone has passed. Replace that date with the next approved customer review date before tracking the final launch schedule.
+
+The site is considered ready for customer review when:
+
+- Navigation is finalized.
+- Homepage is complete.
+- Events integration works.
+- Initiatives is complete.
+- Resources is complete.
+- Giving is complete.
+- Merch link works.
+- Stay Connected is complete.
+- Scholarships and forms are operational.
+- Sponsors are visible.
+- Gallery is populated.
+- Contact and social details are updated.
+- Desktop, tablet, and mobile layouts pass QA.
+
+## 22. Verification Commands
+
+Run:
+
+```bash
+npm run build
+npm run lint:css
+npm run lint:js
+npm run test:e2e
+npm run test:e2e:screenshot
+npm run ai:check
+```
+
+Also verify:
+
+- Theme activation does not create an Events page.
+- Theme activation does not register `scng_event`.
+- Homepage pulls upcoming events from `tribe_events`.
+- Customizer hero images save and render correctly.
+- Disabled slides do not render.
+- Empty hero settings fall back safely.
+- Theme remains error-free without The Events Calendar.
+- All page templates call `the_content()` where editor-managed content is expected.

@@ -17,14 +17,14 @@ get_header();
 		array(
 			'eyebrow' => __( 'About', 'socalnextgen' ),
 			'title'   => __( 'Back To Heart. Back To Basics. Back To The Call.', 'socalnextgen' ),
-			'intro'   => __( 'SoCal NextGen exists to equip leaders, empower students, and partner with churches across Southern California.', 'socalnextgen' ),
+			'intro'   => __( 'Socal NextGen exists to equip leaders, empower students, and partner with churches across Southern California.', 'socalnextgen' ),
 		)
 	);
 	get_template_part(
 		'template-parts/layout/page-content',
 		null,
 		array(
-			'fallback' => __( 'Use this page to share the story, mission, values, and leadership of SoCal NextGen Youth Ministries.', 'socalnextgen' ),
+			'fallback' => __( 'Use this page to share the story, mission, values, and leadership of Socal NextGen Youth Ministries.', 'socalnextgen' ),
 		)
 	);
 	get_template_part( 'template-parts/sections/pillars' );

@@ -7,46 +7,28 @@
 
 namespace WP_Rig\WP_Rig;
 
-$event_post_type = post_type_exists( 'tribe_events' ) ? 'tribe_events' : 'scng_event';
-$event_meta_key  = 'tribe_events' === $event_post_type ? '_EventStartDate' : 'scng_event_date';
+$events = null;
 
-$events = new \WP_Query(
-	array(
-		'post_type'      => $event_post_type,
-		'posts_per_page' => 4,
-		'post_status'    => 'publish',
-		'meta_key'       => $event_meta_key,
-		'orderby'        => 'meta_value',
-		'order'          => 'ASC',
-	)
-);
-
-$fallback_events = array(
-	array(
-		'title'       => __( 'Youth Leaders Workshop', 'socalnextgen' ),
-		'description' => __( 'Equip. Empower. Lead.', 'socalnextgen' ),
-		'month'       => __( 'Jan', 'socalnextgen' ),
-		'date'        => __( '24-31', 'socalnextgen' ),
-	),
-	array(
-		'title'       => __( 'NextGen Rally / FAF', 'socalnextgen' ),
-		'description' => __( 'Faith. Worship. Unity.', 'socalnextgen' ),
-		'month'       => __( 'Mar', 'socalnextgen' ),
-		'date'        => __( '6-7', 'socalnextgen' ),
-	),
-	array(
-		'title'       => __( 'SDC Youth Conference', 'socalnextgen' ),
-		'description' => __( 'Encounter. Grow. Go.', 'socalnextgen' ),
-		'month'       => __( 'Apr', 'socalnextgen' ),
-		'date'        => __( '24-25', 'socalnextgen' ),
-	),
-	array(
-		'title'       => __( 'NextGen Camp', 'socalnextgen' ),
-		'description' => __( 'Unplug. Connect. Encounter.', 'socalnextgen' ),
-		'month'       => __( 'Aug', 'socalnextgen' ),
-		'date'        => __( '7-9', 'socalnextgen' ),
-	),
-);
+if ( post_type_exists( 'tribe_events' ) ) {
+	$events = new \WP_Query(
+		array(
+			'post_type'      => 'tribe_events',
+			'posts_per_page' => 4,
+			'post_status'    => 'publish',
+			'meta_key'       => '_EventStartDate',
+			'orderby'        => 'meta_value',
+			'order'          => 'ASC',
+			'meta_query'     => array(
+				array(
+					'key'     => '_EventStartDate',
+					'value'   => current_time( 'mysql' ),
+					'compare' => '>=',
+					'type'    => 'DATETIME',
+				),
+			),
+		)
+	);
+}
 
 ?>
 <section id="events" class="scng-section scng-page-band">
@@ -60,25 +42,20 @@ $fallback_events = array(
 		</div>
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 			<?php
-			if ( $events->have_posts() ) :
+			if ( $events && $events->have_posts() ) :
 				while ( $events->have_posts() ) :
 					$events->the_post();
-					$post_type  = get_post_type( get_the_ID() );
-					$event_date = 'tribe_events' === $post_type ? get_post_meta( get_the_ID(), '_EventStartDate', true ) : get_post_meta( get_the_ID(), 'scng_event_date', true );
+					$event_date = get_post_meta( get_the_ID(), '_EventStartDate', true );
 					$timestamp  = $event_date ? strtotime( $event_date ) : false;
-					$location   = get_post_meta( get_the_ID(), 'scng_event_location', true );
-
-					if ( 'tribe_events' === $post_type ) {
-						$venue_id = (int) get_post_meta( get_the_ID(), '_EventVenueID', true );
-						$location = $venue_id ? get_the_title( $venue_id ) : get_post_meta( get_the_ID(), '_EventVenue', true );
-					}
+					$venue_id   = (int) get_post_meta( get_the_ID(), '_EventVenueID', true );
+					$location   = $venue_id ? get_the_title( $venue_id ) : get_post_meta( get_the_ID(), '_EventVenue', true );
 
 					get_template_part(
 						'template-parts/cards/event-card',
 						null,
 						array(
 							'title'       => get_the_title(),
-							'description' => get_the_excerpt() ?: __( 'Gather with SoCal NextGen.', 'socalnextgen' ),
+							'description' => get_the_excerpt() ?: __( 'Gather with Socal NextGen.', 'socalnextgen' ),
 							'url'         => get_permalink(),
 							'month'       => $timestamp ? gmdate( 'M', $timestamp ) : __( 'Soon', 'socalnextgen' ),
 							'date'        => $timestamp ? gmdate( 'j', $timestamp ) : __( 'TBD', 'socalnextgen' ),
@@ -89,19 +66,11 @@ $fallback_events = array(
 				endwhile;
 				wp_reset_postdata();
 			else :
-				foreach ( $fallback_events as $event ) {
-					get_template_part(
-						'template-parts/cards/event-card',
-						null,
-						array_merge(
-							$event,
-							array(
-								'url'      => home_url( '/events/' ),
-								'location' => __( 'TBD', 'socalnextgen' ),
-							)
-						)
-					);
-				}
+				?>
+				<p class="text-brand-navy sm:col-span-2 lg:col-span-4">
+					<?php esc_html_e( 'Upcoming events will appear here when they are available.', 'socalnextgen' ); ?>
+				</p>
+				<?php
 			endif;
 			?>
 		</div>

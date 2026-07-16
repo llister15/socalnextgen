@@ -17,7 +17,7 @@ get_header();
 		array(
 			'eyebrow' => __( 'Gallery', 'socalnextgen' ),
 			'title'   => __( 'From Our Community', 'socalnextgen' ),
-			'intro'   => __( 'Photos and moments from SoCal NextGen gatherings, events, and ministry life.', 'socalnextgen' ),
+			'intro'   => __( 'Photos and moments from Socal NextGen gatherings, events, and ministry life.', 'socalnextgen' ),
 		)
 	);
 	get_template_part(

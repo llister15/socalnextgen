@@ -15,9 +15,9 @@ $pillars = array(
 		'tone'        => 'orange',
 	),
 	array(
-		'icon'        => 'book',
-		'title'       => __( 'Word', 'socalnextgen' ),
-		'description' => __( "We are committed to God's Word as the foundation of our faith.", 'socalnextgen' ),
+		'icon'        => 'spark',
+		'title'       => __( 'Work', 'socalnextgen' ),
+		'description' => __( 'We put faith into action through purposeful work and commitment.', 'socalnextgen' ),
 		'tone'        => 'blue',
 	),
 	array(

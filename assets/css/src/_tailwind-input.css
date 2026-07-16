@@ -62,6 +62,16 @@
 		@apply overflow-hidden rounded-lg border border-brand-line bg-white shadow-card;
 	}
 
+	.scng-program-card__cta,
+	.scng-program-card__cta:visited,
+	.scng-program-card__cta:focus {
+		@apply text-white;
+	}
+
+	.scng-program-card__cta:hover {
+		@apply text-brand-navy;
+	}
+
 	.scng-page-band {
 		@apply border-y border-brand-line bg-slate-50;
 	}

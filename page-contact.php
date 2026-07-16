@@ -17,7 +17,7 @@ get_header();
 		array(
 			'eyebrow' => __( 'Contact', 'socalnextgen' ),
 			'title'   => __( 'Stay Connected', 'socalnextgen' ),
-			'intro'   => __( 'Connect with SoCal NextGen for events, resources, leadership support, and ministry opportunities.', 'socalnextgen' ),
+			'intro'   => __( 'Connect with Socal NextGen for events, resources, leadership support, and ministry opportunities.', 'socalnextgen' ),
 		)
 	);
 	?>

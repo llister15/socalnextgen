@@ -1,6 +1,6 @@
 <?php
 /**
- * Displays a SoCal NextGen button.
+ * Displays a Socal NextGen button.
  *
  * @package wp_rig
  */

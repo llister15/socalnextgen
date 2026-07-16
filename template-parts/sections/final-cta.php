@@ -13,7 +13,7 @@ namespace WP_Rig\WP_Rig;
 		<div class="max-w-2xl">
 			<p class="scng-eyebrow text-brand-gold"><?php esc_html_e( 'Ready To Connect?', 'socalnextgen' ); ?></p>
 			<h2 class="mb-3 text-3xl leading-tight text-white md:text-5xl"><?php esc_html_e( 'Let us build the next generation together.', 'socalnextgen' ); ?></h2>
-			<p class="text-white/80"><?php esc_html_e( 'Partner with SoCal NextGen for events, resources, leadership development, and ministry opportunities across Southern California.', 'socalnextgen' ); ?></p>
+			<p class="text-white/80"><?php esc_html_e( 'Partner with Socal NextGen for events, resources, leadership development, and ministry opportunities across Southern California.', 'socalnextgen' ); ?></p>
 		</div>
 		<?php
 		get_template_part(

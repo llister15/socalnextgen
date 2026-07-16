@@ -1,6 +1,6 @@
 <?php
 /**
- * The front page template for SoCal NextGen.
+ * The front page template for Socal NextGen.
  *
  * @package wp_rig
  */
@@ -19,6 +19,7 @@ get_header();
 	get_template_part( 'template-parts/sections/events-preview' );
 	get_template_part( 'template-parts/sections/program-cards' );
 	get_template_part( 'template-parts/sections/gallery-preview' );
+	get_template_part( 'template-parts/sections/sponsors' );
 	get_template_part( 'template-parts/sections/final-cta' );
 	?>
 </main><!-- #primary -->

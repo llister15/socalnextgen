@@ -1,11 +1,11 @@
 {
   "theme": {
     "slug": "socalnextgen",
-    "name": "SoCalNextGen",
+    "name": "SocalNextGen",
     "theme_uri": "https://socalnextgen.org/",
-    "author": "SoCal NextGen",
+    "author": "Socal NextGen",
     "author_uri": "https://socalnextgen.org/",
-    "description": "A custom SoCal NextGen Youth Ministries theme.",
+    "description": "A custom Socal NextGen Youth Ministries theme.",
     "version": "1.0.0",
     "themeType": "classic",
     "enableBlocks": false

@@ -881,6 +881,18 @@ a {
           box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.scng-program-card__cta,
+	.scng-program-card__cta:visited,
+	.scng-program-card__cta:focus {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.scng-program-card__cta:hover {
+  --tw-text-opacity: 1;
+  color: rgb(7 27 58 / var(--tw-text-opacity, 1));
+}
+
 .scng-page-band {
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -1063,6 +1075,10 @@ a {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .inline {
   display: inline;
 }
@@ -1191,16 +1207,8 @@ a {
   max-width: 12rem;
 }
 
-.max-w-4xl {
-  max-width: 56rem;
-}
-
 .max-w-5xl {
   max-width: 64rem;
-}
-
-.max-w-none {
-  max-width: none;
 }
 
 .max-w-site {
@@ -1234,6 +1242,11 @@ a {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .items-center {
@@ -1456,10 +1469,6 @@ a {
   padding-bottom: 2rem;
 }
 
-.pb-8 {
-  padding-bottom: 2rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -1677,12 +1686,11 @@ a {
   color: rgb(255 210 63 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-brand-navy:hover {
-  --tw-text-opacity: 1;
-  color: rgb(7 27 58 / var(--tw-text-opacity, 1));
-}
-
 @media (min-width: 640px) {
+  .sm\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1704,6 +1712,12 @@ a {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+  }
+
+  .sm\:justify-end {
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
   }
 
   .sm\:justify-between {
@@ -1804,6 +1818,10 @@ a {
 }
 
 @media (min-width: 1024px) {
+  .lg\:col-span-4 {
+    grid-column: span 4 / span 4;
+  }
+
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1818,10 +1836,6 @@ a {
 
   .lg\:grid-cols-\[0\.6fr_0\.4fr\] {
     grid-template-columns: 0.6fr 0.4fr;
-  }
-
-  .lg\:grid-cols-\[0\.7fr_0\.3fr\] {
-    grid-template-columns: 0.7fr 0.3fr;
   }
 
   .lg\:grid-cols-\[0\.9fr_1\.1fr\] {

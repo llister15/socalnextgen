@@ -1,5 +1,5 @@
 /**
- * SoCal NextGen front-page template styles.
+ * Socal NextGen front-page template styles.
  *
  * The main design system is generated from assets/css/tailwind.css.
  * Keep this file for front-page-only refinements that should load conditionally.
@@ -11,4 +11,79 @@
 
 .home .entry-content {
 	max-width: none;
+}
+
+.scng-sponsors__viewport {
+	overflow: hidden;
+}
+
+.scng-sponsors__track,
+.scng-sponsors__group {
+	display: flex;
+	align-items: center;
+}
+
+.scng-sponsors__track {
+	width: max-content;
+	animation: scng-sponsors-scroll 30s linear infinite;
+}
+
+.scng-sponsors__group {
+	gap: 2rem;
+	padding-right: 2rem;
+}
+
+.scng-sponsors__track--static {
+	justify-content: center;
+	width: 100%;
+	animation: none;
+}
+
+.scng-sponsors__group--static {
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-right: 0;
+}
+
+.scng-sponsors__viewport:hover .scng-sponsors__track,
+.scng-sponsors__viewport:focus-within .scng-sponsors__track {
+	animation-play-state: paused;
+}
+
+.scng-sponsor {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 10rem;
+	height: 6rem;
+	padding: 0.75rem;
+	border: 1px solid var(--scng-line);
+	border-radius: 0.5rem;
+	background: #fff;
+}
+
+.scng-sponsor__logo {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+@keyframes scng-sponsors-scroll {
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.scng-sponsors__viewport {
+		overflow-x: auto;
+	}
+
+	.scng-sponsors__track {
+		animation: none;
+	}
+
+	.scng-sponsors__group[aria-hidden="true"] {
+		display: none;
+	}
 }
