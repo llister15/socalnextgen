@@ -9,9 +9,6 @@ namespace WP_Rig\WP_Rig;
 
 $legacy_settings   = get_option( 'wp_rig_theme_settings', array() );
 $legacy_settings   = is_array( $legacy_settings ) ? $legacy_settings : array();
-$facebook_url      = get_theme_mod( 'scng_facebook_url', $legacy_settings['scng_facebook_url'] ?? '' );
-$instagram_url     = get_theme_mod( 'scng_instagram_url', $legacy_settings['scng_instagram_url'] ?? '' );
-$youtube_url       = get_theme_mod( 'scng_youtube_url', $legacy_settings['scng_youtube_url'] ?? '' );
 $footer_email      = get_theme_mod( 'scng_footer_email', $legacy_settings['scng_footer_email'] ?? '' );
 $contact_phone     = get_theme_mod( 'scng_contact_phone', '760-625-2910' );
 $contact_location  = get_theme_mod( 'scng_contact_location', 'Southern California' );
@@ -48,27 +45,23 @@ if ( post_type_exists( 'tribe_events' ) ) {
 		<div class="grid gap-8 md:grid-cols-[1.4fr_0.8fr_1fr_1fr]">
 			<div>
 				<a class="scng-brand mb-4" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<img class="scng-brand__mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="<?php esc_attr_e( 'Socal NextGen Youth Ministries', 'socalnextgen' ); ?>">
+					<img class="scng-brand__mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="<?php esc_attr_e( 'Socal NextGen Youth Ministries', 'socalnextgen' ); ?>" loading="lazy" decoding="async">
 					<span class="scng-brand__text">
 						<span class="scng-brand__name text-white"><?php esc_html_e( 'Socal NextGen', 'socalnextgen' ); ?></span>
 						<span class="scng-brand__tagline text-white/80"><?php esc_html_e( 'Youth Ministries', 'socalnextgen' ); ?></span>
 					</span>
 				</a>
-				<p class="max-w-xs text-sm leading-6 text-white/75"><?php esc_html_e( "Building today's generation to create a stronger tomorrow.", 'socalnextgen' ); ?></p>
-				<div class="mt-5 flex gap-3">
-					<?php if ( $facebook_url ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $facebook_url ); ?>" aria-label="<?php esc_attr_e( 'Socal NextGen on Facebook', 'socalnextgen' ); ?>">f</a>
-					<?php endif; ?>
-					<?php if ( $instagram_url ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $instagram_url ); ?>" aria-label="<?php esc_attr_e( 'Socal NextGen on Instagram', 'socalnextgen' ); ?>">ig</a>
-					<?php endif; ?>
-					<?php if ( $youtube_url ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( $youtube_url ); ?>" aria-label="<?php esc_attr_e( 'Socal NextGen on YouTube', 'socalnextgen' ); ?>">yt</a>
-					<?php endif; ?>
-					<?php if ( $footer_email ) : ?>
-						<a class="flex h-9 w-9 items-center justify-center rounded-full border border-white/35 text-sm font-bold text-white no-underline hover:border-brand-gold hover:text-brand-gold" href="<?php echo esc_url( 'mailto:' . $footer_email ); ?>" aria-label="<?php esc_attr_e( 'Email Socal NextGen', 'socalnextgen' ); ?>">@</a>
-					<?php endif; ?>
-				</div>
+				<p class="max-w-xs text-sm leading-6 text-white/75"><?php esc_html_e( 'Building the generation of today to create a stronger tomorrow.', 'socalnextgen' ); ?></p>
+				<?php
+				get_template_part(
+					'template-parts/components/social-links',
+					null,
+					array(
+						'class'      => 'scng-social-links scng-social-links--footer',
+						'link_class' => 'scng-social-link',
+					)
+				);
+				?>
 			</div>
 
 			<nav aria-label="<?php esc_attr_e( 'Footer quick links', 'socalnextgen' ); ?>">
@@ -110,8 +103,10 @@ if ( post_type_exists( 'tribe_events' ) ) {
 									$next_event,
 									'thumbnail',
 									array(
-										'class' => 'h-16 w-20 rounded object-cover',
-										'alt'   => '',
+										'class'    => 'h-16 w-20 rounded object-cover',
+										'alt'      => '',
+										'loading'  => 'lazy',
+										'decoding' => 'async',
 									)
 								);
 								?>
@@ -151,14 +146,26 @@ if ( post_type_exists( 'tribe_events' ) ) {
 					<?php endif; ?>
 				</ul>
 				<?php
-				get_template_part(
-					'template-parts/components/button',
-					null,
-					array(
-						'url'   => home_url( '/contact/' ),
-						'label' => __( 'Stay Connected', 'socalnextgen' ),
-					)
-				);
+				if ( has_nav_menu( 'footer_cta' ) ) {
+					wp_nav_menu(
+						array(
+							'theme_location' => 'footer_cta',
+							'menu_class'     => 'm-0 list-none p-0',
+							'container'      => false,
+							'depth'          => 1,
+							'fallback_cb'    => false,
+						)
+					);
+				} else {
+					get_template_part(
+						'template-parts/components/button',
+						null,
+						array(
+							'url'   => home_url( '/nextgen-locator/' ),
+							'label' => __( 'NextGen Locator', 'socalnextgen' ),
+						)
+					);
+				}
 				?>
 			</div>
 		</div>

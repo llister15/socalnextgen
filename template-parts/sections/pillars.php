@@ -16,8 +16,8 @@ $pillars = array(
 	),
 	array(
 		'icon'        => 'spark',
-		'title'       => __( 'Work', 'socalnextgen' ),
-		'description' => __( 'We put faith into action through purposeful work and commitment.', 'socalnextgen' ),
+		'title'       => __( 'Word', 'socalnextgen' ),
+		'description' => __( 'The Word of God is the foundation of our faith, the source of who we are, and the standard by which we live.', 'socalnextgen' ),
 		'tone'        => 'blue',
 	),
 	array(

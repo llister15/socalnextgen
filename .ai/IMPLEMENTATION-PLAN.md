@@ -175,6 +175,9 @@ Phase gate: formal specification approved, context completeness and implementati
 
 ## Phase 2 — Navigation and Templates
 
+- [x] Update the Primary menu to About, Initiatives, Resources, Scholarships, Giving, external Merch, and Contact.
+- [x] Add a one-time migration for existing assigned Primary menus without deleting page content.
+- [x] Create initial Initiatives and Giving page templates.
 - [ ] Update starter page definitions to the approved slug list.
 - [ ] Update primary and footer starter menu order.
 - [ ] Preserve existing assigned menus and user content.

@@ -41,7 +41,7 @@ $location = trim( implode( ' ', array_filter( array( $campus, $building, $room )
 <article class="scng-card flex h-full flex-col">
 	<?php if ( has_post_thumbnail( $post_id ) ) : ?>
 		<a class="block aspect-[16/9] overflow-hidden bg-slate-100" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
-			<?php echo get_the_post_thumbnail( $post_id, 'medium_large', array( 'class' => 'h-full w-full object-cover' ) ); ?>
+			<?php echo get_the_post_thumbnail( $post_id, 'medium_large', array( 'class' => 'h-full w-full object-cover', 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
 		</a>
 	<?php endif; ?>
 	<div class="flex flex-1 flex-col p-6">

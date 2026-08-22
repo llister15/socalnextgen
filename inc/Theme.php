@@ -160,6 +160,8 @@ class Theme {
 			new Starter_Content\Component(),
 			new Plugin_Dependencies\Component(),
 			new Weekly_Services\Component(),
+			new Youth_Groups\Component(),
+			new Sharing_Metadata\Component(),
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {

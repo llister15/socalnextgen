@@ -76,8 +76,61 @@
 		@apply border-y border-brand-line bg-slate-50;
 	}
 
+	.scng-page-loader {
+		@apply fixed inset-0 z-[99999] hidden place-items-center bg-brand-navy opacity-100;
+		transition: opacity 320ms ease;
+	}
+
+	.scng-js .scng-page-loader {
+		@apply grid;
+	}
+
+	.scng-page-loader.is-exiting {
+		@apply pointer-events-none opacity-0;
+	}
+
+	.scng-page-loader__inner {
+		@apply flex flex-col items-center gap-6;
+	}
+
+	.scng-page-loader__logo {
+		@apply h-auto w-44;
+	}
+
+	.scng-page-loader__spinner {
+		@apply h-8 w-8 rounded-full border-2 border-white/30 border-t-brand-orange;
+		animation: scng-loader-spin 800ms linear infinite;
+	}
+
+	.scng-back-to-top {
+		@apply pointer-events-none fixed bottom-5 right-5 z-40 flex h-12 w-12 translate-y-3 items-center justify-center rounded-full border-0 bg-brand-orange text-white opacity-0 shadow-card md:bottom-8 md:right-8;
+		visibility: hidden;
+		transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+	}
+
+	.scng-back-to-top:hover {
+		@apply bg-orange-700 text-white;
+	}
+
+	.scng-back-to-top.is-visible {
+		@apply pointer-events-auto translate-y-0 opacity-100;
+		visibility: visible;
+	}
+
 	.scng-hero-slider {
-		@apply absolute inset-y-0 right-0 hidden w-full lg:block lg:w-[64%];
+		@apply absolute inset-0 block w-full;
+	}
+
+	.scng-hero-video {
+		@apply absolute inset-0 block w-full;
+	}
+
+	.scng-hero-video__poster {
+		@apply absolute inset-0 bg-cover bg-center bg-no-repeat opacity-35;
+	}
+
+	.scng-hero-video__media {
+		@apply absolute inset-0 h-full w-full object-cover object-center opacity-35;
 	}
 
 	.scng-hero-slide {
@@ -103,11 +156,13 @@
 	}
 
 	.scng-hero-slide img {
-		@apply h-full w-full object-cover object-center;
+		@apply h-full w-full object-cover object-center opacity-35;
 	}
+}
 
-	.scng-hero-overlay {
-		@apply absolute inset-0 bg-gradient-to-r from-white via-white/45 to-white/5;
+@keyframes scng-loader-spin {
+	to {
+		transform: rotate(360deg);
 	}
 }
 
@@ -128,7 +183,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.scng-hero-video__media {
+		display: none;
+	}
+
 	.scng-hero-slide {
 		animation: none;
+	}
+
+	.scng-page-loader__spinner {
+		animation: none;
+	}
+
+	.scng-back-to-top {
+		transition: none;
 	}
 }

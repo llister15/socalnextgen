@@ -534,8 +534,9 @@ body.mobile-menu-open {
 }
 
 @media (--narrow-menu-query) {
-	.primary-menu-container {
+	.site-header .primary-menu-container {
 		position: absolute;
+		inset-inline: 0;
 		height: 100vh;
 		width: 100vw;
 		justify-content: flex-start;
@@ -576,6 +577,44 @@ body.mobile-menu-open {
 		flex-grow: 1;
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
+	}
+	.primary-menu-container .scng-mobile-utility {
+		display: block;
+		padding: 1rem 0;
+		border-top: 1px solid var(--scng-line);
+	}
+	.scng-mobile-utility__menu {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 0.5rem 1.25rem;
+		margin: 0 0 1rem;
+		padding: 0;
+		list-style: none;
+	}
+	.scng-mobile-utility__menu a,
+	.scng-mobile-utility__menu a:visited {
+		color: var(--scng-navy);
+		font-family: var(--highlight-font-family);
+		font-size: 0.85rem;
+		font-weight: 800;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	.scng-mobile-utility__menu a:hover,
+	.scng-mobile-utility__menu a:focus {
+		color: var(--scng-orange);
+	}
+	.scng-social-links--mobile {
+		justify-content: flex-end;
+	}
+	.scng-social-links--mobile .scng-social-link,
+	.scng-social-links--mobile .scng-social-link:visited {
+		color: var(--scng-navy);
+	}
+	.scng-social-links--mobile .scng-social-link:hover,
+	.scng-social-links--mobile .scng-social-link:focus {
+		color: var(--scng-orange);
 	}
 	.wp-block-navigation:not(.has-text-color) .wp-block-navigation__responsive-container.is-menu-open {
 		color: var(--global-font-color);
@@ -737,16 +776,21 @@ body.mobile-menu-open {
 		font-size: 0.82rem;
 	}
 
-}
+	.site-header .main-navigation .scng-menu-cta > a,
+	.site-header .main-navigation .scng-menu-cta > a:visited {
+		padding: 0.8rem 1.15rem;
+		border-radius: 0.375rem;
+		background: var(--scng-orange);
+		box-shadow: 0 1px 2px rgb(7 27 58 / 0.12);
+		color: #fff;
+		line-height: 1;
+	}
 
-.scng-header-cta {
-	display: none;
-	flex: 0 0 auto;
-}
-
-@media (--wide-menu-query) {
-	.scng-header-cta {
-		display: inline-flex;
+	.site-header .main-navigation .scng-menu-cta > a:hover,
+	.site-header .main-navigation .scng-menu-cta > a:focus {
+		background: #c2410c;
+		box-shadow: 0 1px 2px rgb(7 27 58 / 0.12);
+		color: #fff;
 	}
 }
 /* stylelint-enable no-descending-specificity */

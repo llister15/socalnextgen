@@ -38,8 +38,10 @@ use function wp_nav_menu;
  */
 class Component implements Component_Interface, Templating_Component_Interface {
 
-	const PRIMARY_NAV_MENU_SLUG = 'primary';
+	const PRIMARY_NAV_MENU_SLUG        = 'primary';
 	const FOOTER_QUICK_LINKS_MENU_SLUG = 'footer_quick_links';
+	const FOOTER_CTA_MENU_SLUG         = 'footer_cta';
+	const UTILITY_NAV_MENU_SLUG        = 'utility';
 
 	/**
 	 * All theme settings - from JSON file.
@@ -146,6 +148,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_filter( 'wp_rig_menu_toggle_button', array( $this, 'customize_mobile_menu_toggle' ) );
 		add_filter( 'wp_rig_site_navigation_classes', array( $this, 'customize_mobile_menu_nav_classes' ) );
 		add_filter( 'render_block_core/navigation', array( $this, 'add_nav_class_to_navigation_block' ), 10, 3 );
+		add_filter( 'nav_menu_css_class', array( $this, 'filter_primary_menu_cta_class' ), 10, 4 );
+		add_filter( 'nav_menu_link_attributes', array( $this, 'filter_footer_cta_link_attributes' ), 10, 4 );
 		//add_filter( 'walker_nav_menu_start_el', array( $this, 'modify_menu_items_for_accessibility' ), 10, 4 );
 		add_filter( 'wp_nav_menu_objects', array( $this, 'inject_parent_link_into_submenu' ), 10, 2 );
 	}
@@ -185,10 +189,36 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	public function action_register_nav_menus() {
 		register_nav_menus(
 			array(
-				static::PRIMARY_NAV_MENU_SLUG            => esc_html__( 'Primary', 'wp-rig' ),
-				static::FOOTER_QUICK_LINKS_MENU_SLUG    => esc_html__( 'Footer Quick Links', 'socalnextgen' ),
+				static::PRIMARY_NAV_MENU_SLUG        => esc_html__( 'Primary', 'wp-rig' ),
+				static::FOOTER_QUICK_LINKS_MENU_SLUG => esc_html__( 'Footer Quick Links', 'socalnextgen' ),
+				static::FOOTER_CTA_MENU_SLUG         => esc_html__( 'Footer CTA', 'socalnextgen' ),
+				static::UTILITY_NAV_MENU_SLUG        => esc_html__( 'Header Utility Links', 'socalnextgen' ),
 			)
 		);
+	}
+
+	/**
+	 * Styles links assigned to the footer call-to-action menu location.
+	 *
+	 * @param array    $atts HTML attributes applied to the menu item's anchor.
+	 * @param \WP_Post $item Current menu item.
+	 * @param \stdClass $args Menu arguments.
+	 * @param int      $depth Menu item depth.
+	 * @return array Filtered link attributes.
+	 */
+	public function filter_footer_cta_link_attributes( array $atts, $item, $args, int $depth ): array {
+		unset( $item, $depth );
+
+		if ( empty( $args->theme_location ) || static::FOOTER_CTA_MENU_SLUG !== $args->theme_location ) {
+			return $atts;
+		}
+
+		$classes       = isset( $atts['class'] ) ? explode( ' ', $atts['class'] ) : array();
+		$classes[]     = 'scng-button';
+		$classes[]     = 'scng-button-primary';
+		$atts['class'] = implode( ' ', array_unique( array_filter( $classes ) ) );
+
+		return $atts;
 	}
 
 	/**
@@ -250,6 +280,37 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		$args['theme_location'] = static::PRIMARY_NAV_MENU_SLUG;
 
 		wp_nav_menu( $args );
+	}
+
+	/**
+	 * Marks the editable Primary menu CTA for component-specific styling.
+	 *
+	 * The stored class keeps the CTA treatment if an editor later changes its
+	 * navigation label. Matching the initial label makes setup intuitive.
+	 *
+	 * @param string[] $classes Menu item classes.
+	 * @param WP_Post  $item    Current menu item.
+	 * @param object   $args    Menu arguments.
+	 * @param int      $depth   Menu depth.
+	 * @return string[] Filtered menu item classes.
+	 */
+	public function filter_primary_menu_cta_class( array $classes, WP_Post $item, object $args, int $depth ): array {
+		if (
+			0 !== $depth ||
+			empty( $args->theme_location ) ||
+			static::PRIMARY_NAV_MENU_SLUG !== $args->theme_location
+		) {
+			return $classes;
+		}
+
+		if (
+			in_array( 'scng-menu-cta', $classes, true ) ||
+			'stay-connected' === sanitize_title( $item->title )
+		) {
+			$classes[] = 'scng-menu-cta';
+		}
+
+		return array_unique( $classes );
 	}
 
 	/**

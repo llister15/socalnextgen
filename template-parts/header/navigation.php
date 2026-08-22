@@ -20,4 +20,27 @@ if ( ! wp_rig()->is_primary_nav_menu_active() ) {
 	<nav id="<?php echo apply_filters( 'wp_rig_site_navigation_id', 'site-navigation' ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */ ?>" class="<?php echo apply_filters( 'wp_rig_site_navigation_classes', 'main-navigation nav--toggle-sub nav--toggle-small' ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */ ?>" aria-label="<?php esc_attr_e( 'Main menu', 'wp-rig' ); ?>">
 		<?php wp_rig()->display_primary_nav_menu( array( 'menu_id' => 'primary-menu' ) ); ?>
 	</nav><!-- #site-navigation -->
+	<div class="scng-mobile-utility">
+		<?php
+		if ( has_nav_menu( 'utility' ) ) {
+			wp_nav_menu(
+				array(
+					'theme_location' => 'utility',
+					'menu_class'     => 'scng-mobile-utility__menu',
+					'container'      => false,
+					'depth'          => 1,
+					'fallback_cb'    => false,
+				)
+			);
+		}
+		get_template_part(
+			'template-parts/components/social-links',
+			null,
+			array(
+				'class'      => 'scng-social-links scng-social-links--mobile',
+				'link_class' => 'scng-social-link',
+			)
+		);
+		?>
+	</div>
 </div>

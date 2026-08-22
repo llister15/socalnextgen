@@ -24,7 +24,20 @@
 	text-decoration: none;
 }
 
+.site-footer nav a:visited {
+	color: rgb(255 255 255 / 0.75);
+}
+
 .site-footer nav a:hover,
 .site-footer nav a:focus {
 	color: var(--scng-gold);
+}
+
+.site-footer .text-brand-gold:visited,
+.site-footer .scng-link-cta:visited {
+	color: var(--scng-gold);
+}
+
+.site-footer .scng-button:visited {
+	color: #fff;
 }

@@ -30,7 +30,7 @@ for ( $index = 1; $index <= 10; $index++ ) {
 			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
 				<?php foreach ( $images as $attachment_id ) : ?>
 					<figure class="aspect-[16/9] overflow-hidden rounded-lg bg-slate-100">
-						<?php echo wp_get_attachment_image( $attachment_id, 'medium_large', false, array( 'class' => 'h-full w-full object-cover' ) ); ?>
+						<?php echo wp_get_attachment_image( $attachment_id, 'medium_large', false, array( 'class' => 'h-full w-full object-cover', 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
 					</figure>
 				<?php endforeach; ?>
 			</div>

@@ -80,9 +80,44 @@ class Component implements Component_Interface {
 		);
 
 		$this->add_hero_controls( $wp_customize );
+		$this->add_about_controls( $wp_customize );
 		$this->add_community_controls( $wp_customize );
 		$this->add_sponsor_controls( $wp_customize );
 		$this->add_contact_social_controls( $wp_customize );
+	}
+
+	/**
+	 * Adds the About story image control.
+	 *
+	 * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+	 */
+	private function add_about_controls( WP_Customize_Manager $wp_customize ): void {
+		$wp_customize->add_section(
+			'scng_about_page',
+			array(
+				'title' => __( 'About Page', 'socalnextgen' ),
+				'panel' => 'scng_theme_options',
+			)
+		);
+
+		$wp_customize->add_setting(
+			'scng_about_story_image',
+			array(
+				'default'           => 0,
+				'sanitize_callback' => 'absint',
+			)
+		);
+		$wp_customize->add_control(
+			new \WP_Customize_Media_Control(
+				$wp_customize,
+				'scng_about_story_image',
+				array(
+					'label'     => __( 'About Story Image', 'socalnextgen' ),
+					'section'   => 'scng_about_page',
+					'mime_type' => 'image',
+				)
+			)
+		);
 	}
 
 	/**
@@ -96,6 +131,26 @@ class Component implements Component_Interface {
 			array(
 				'title' => __( 'Hero Slider', 'socalnextgen' ),
 				'panel' => 'scng_theme_options',
+			)
+		);
+
+		$wp_customize->add_setting(
+			'scng_hero_video',
+			array(
+				'default'           => 0,
+				'sanitize_callback' => 'absint',
+			)
+		);
+		$wp_customize->add_control(
+			new \WP_Customize_Media_Control(
+				$wp_customize,
+				'scng_hero_video',
+				array(
+					'label'       => __( 'Background MP4 Video', 'socalnextgen' ),
+					'description' => __( 'When selected, the video replaces the image slider. The first slide image is used as its poster and fallback.', 'socalnextgen' ),
+					'section'     => 'scng_hero_slider',
+					'mime_type'   => 'video',
+				)
 			)
 		);
 
@@ -264,9 +319,10 @@ class Component implements Component_Interface {
 		$controls = array(
 			'scng_contact_phone'     => array( __( 'Phone', 'socalnextgen' ), 'text', 'sanitize_text_field', '760-625-2910' ),
 			'scng_contact_location'  => array( __( 'Location / State', 'socalnextgen' ), 'text', 'sanitize_text_field', 'Southern California' ),
-			'scng_footer_email'      => array( __( 'Email', 'socalnextgen' ), 'email', 'sanitize_email', '' ),
+			'scng_footer_email'      => array( __( 'Email', 'socalnextgen' ), 'email', 'sanitize_email', 'socalngym@gmail.com' ),
 			'scng_facebook_url'      => array( __( 'Facebook URL', 'socalnextgen' ), 'url', 'esc_url_raw', '' ),
 			'scng_instagram_url'     => array( __( 'Instagram URL', 'socalnextgen' ), 'url', 'esc_url_raw', '' ),
+			'scng_x_url'             => array( __( 'X URL', 'socalnextgen' ), 'url', 'esc_url_raw', '' ),
 			'scng_youtube_url'       => array( __( 'YouTube URL', 'socalnextgen' ), 'url', 'esc_url_raw', '' ),
 			'scng_footer_credit'     => array( __( 'Footer Credit', 'socalnextgen' ), 'text', 'sanitize_text_field', __( 'Created and designed by Mber Digital', 'socalnextgen' ) ),
 			'scng_footer_credit_url' => array( __( 'Footer Credit URL', 'socalnextgen' ), 'url', 'esc_url_raw', '' ),

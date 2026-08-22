@@ -22,17 +22,15 @@ The theme will:
 
 ## 2. Primary Navigation
 
-The desktop and mobile navigation order must be:
+The desktop and mobile Primary menu order must be:
 
-1. Home
-2. About
-3. Initiatives
-4. Resources
-5. Scholarships
-6. Giving
-7. Merch
-8. Contact
-9. Stay Connected
+1. About
+2. Initiatives
+3. Resources
+4. Scholarships
+5. Giving
+6. Merch
+7. Contact
 
 ### Navigation Rules
 
@@ -43,7 +41,8 @@ The desktop and mobile navigation order must be:
 - The Events Calendar owns the `/events/` route.
 - Merch may link to an external merchandise website.
 - Verify the same order on desktop and mobile.
-- Treat **Stay Connected** as the final highlighted navigation action.
+- Keep Home accessible through the linked site logo rather than a Primary menu item.
+- Keep **Stay Connected** as a separate highlighted header action rather than a Primary menu item.
 
 ## 3. Page Architecture
 
@@ -100,15 +99,13 @@ Update `inc/Starter_Content/Component.php` so activation:
 
 ### Primary Menu
 
-- Home
 - About
 - Initiatives
 - Resources
 - Scholarships
 - Giving
-- Merch
+- Merch — external link to `https://socalpuleganextgenym.com/`
 - Contact
-- Stay Connected
 
 ### Footer Quick Links
 

@@ -14,7 +14,7 @@ namespace WP_Rig\WP_Rig;
 			<?php get_template_part( 'template-parts/components/icon', null, array( 'name' => 'users', 'class' => 'h-14 w-14' ) ); ?>
 		</div>
 		<h2 class="text-2xl leading-tight md:text-3xl">
-			<?php esc_html_e( "Building today's generation", 'socalnextgen' ); ?>
+			<?php esc_html_e( 'Building the generation of today', 'socalnextgen' ); ?>
 			<span class="block text-brand-orange"><?php esc_html_e( 'to create a stronger tomorrow.', 'socalnextgen' ); ?></span>
 		</h2>
 		<div class="border-brand-orange text-base leading-7 text-brand-navy md:border-l md:pl-8">

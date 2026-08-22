@@ -11,7 +11,7 @@ namespace WP_Rig\WP_Rig;
 <div class="site-branding flex-1">
 
 	<a class="scng-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-		<img class="scng-brand__mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="<?php esc_attr_e( 'Socal NextGen Youth Ministries', 'socalnextgen' ); ?>">
+		<img class="scng-brand__mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="<?php esc_attr_e( 'Socal NextGen Youth Ministries', 'socalnextgen' ); ?>" loading="eager" decoding="async">
 		<span class="scng-brand__text">
 			<span class="scng-brand__name"><?php esc_html_e( 'Socal NextGen', 'socalnextgen' ); ?></span>
 			<span class="scng-brand__tagline"><?php esc_html_e( 'Youth Ministries', 'socalnextgen' ); ?></span>

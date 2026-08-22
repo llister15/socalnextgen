@@ -16,6 +16,7 @@ namespace WP_Rig\WP_Rig;
 	<footer id="colophon" class="site-footer">
 		<?php get_template_part( 'template-parts/footer/info' ); ?>
 	</footer><!-- #colophon -->
+	<?php get_template_part( 'template-parts/components/back-to-top' ); ?>
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

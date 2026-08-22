@@ -20,9 +20,9 @@ $image       = $args['image'] ?? '';
 	<a class="block no-underline" href="<?php echo esc_url( $url ); ?>">
 		<div class="relative aspect-[16/9] overflow-hidden bg-brand-navy">
 			<?php if ( $image ) : ?>
-				<img class="h-full w-full object-cover" src="<?php echo esc_url( $image ); ?>" alt="">
+				<img class="h-full w-full object-cover" src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy" decoding="async">
 			<?php else : ?>
-				<img class="h-full w-full object-cover" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/placeholder-ministry.svg' ) ); ?>" alt="">
+				<img class="h-full w-full object-contain p-8" src="<?php echo esc_url( get_theme_file_uri( '/assets/images/NextGenLogo.png' ) ); ?>" alt="" loading="lazy" decoding="async">
 			<?php endif; ?>
 			<div class="absolute left-0 top-0 bg-brand-orange px-4 py-3 text-center font-display font-bold uppercase leading-none text-white">
 				<span class="block text-xl"><?php echo esc_html( $month ); ?></span>

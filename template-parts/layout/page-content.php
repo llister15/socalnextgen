@@ -12,7 +12,7 @@ $fallback = $args['fallback'] ?? '';
 ?>
 <section class="scng-section bg-white">
 	<div class="scng-container">
-		<div class="mx-auto w-full max-w-site text-center text-brand-navy">
+		<div class="mx-auto w-full max-w-site text-brand-navy">
 			<?php
 			if ( have_posts() ) {
 				while ( have_posts() ) {

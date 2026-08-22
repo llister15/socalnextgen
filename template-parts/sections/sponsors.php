@@ -49,8 +49,10 @@ $copies       = $is_scrolling ? 2 : 1;
 										'medium',
 										false,
 										array(
-											'class' => 'scng-sponsor__logo',
-											'alt'   => $sponsor['name'],
+											'class'    => 'scng-sponsor__logo',
+											'alt'      => $sponsor['name'],
+											'loading'  => 'lazy',
+											'decoding' => 'async',
 										)
 									);
 									?>
@@ -63,8 +65,10 @@ $copies       = $is_scrolling ? 2 : 1;
 										'medium',
 										false,
 										array(
-											'class' => 'scng-sponsor__logo',
-											'alt'   => $sponsor['name'],
+											'class'    => 'scng-sponsor__logo',
+											'alt'      => $sponsor['name'],
+											'loading'  => 'lazy',
+											'decoding' => 'async',
 										)
 									);
 									?>

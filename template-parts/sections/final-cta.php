@@ -20,8 +20,8 @@ namespace WP_Rig\WP_Rig;
 			'template-parts/components/button',
 			null,
 			array(
-				'url'   => home_url( '/contact/' ),
-				'label' => __( 'Stay Connected', 'socalnextgen' ),
+				'url'   => home_url( '/nextgen-locator/' ),
+				'label' => __( 'NextGen Locator', 'socalnextgen' ),
 				'icon'  => 'arrow-right',
 			)
 		);

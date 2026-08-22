@@ -14,7 +14,6 @@ get_header();
 	<?php
 	get_template_part( 'template-parts/sections/home-hero' );
 	get_template_part( 'template-parts/sections/mission' );
-	get_template_part( 'template-parts/sections/weekly-services-preview' );
 	get_template_part( 'template-parts/sections/pillars' );
 	get_template_part( 'template-parts/sections/events-preview' );
 	get_template_part( 'template-parts/sections/program-cards' );
