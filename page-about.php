@@ -17,7 +17,7 @@ $post_id        = get_the_ID();
 $story_image_id = (int) get_theme_mod( 'scng_about_story_image', 0 );
 $story_image_id = $story_image_id ?: get_post_thumbnail_id( $post_id );
 $mission        = array(
-	__( 'Our mission is to equip the next generation with the biblical foundation, practical tools, and spiritual guidance they need to live Christ-centered, purpose-driven lives. We believe the transforming power of God\'s Word and the leading of the Holy Spirit empower young people to discover their identity, fulfill their God-given purpose, and make a lasting impact in their homes, churches, communities, and beyond.', 'socalnextgen' ),
+	__( 'Our mission is to equip the next generation with the biblical foundation, practical tools, and spiritual guidance they need to live Christ-centered, purpose-driven lives. We believe in the transforming power of God\'s Word and the leading of the Holy Spirit to empower young people to discover their identity, fulfill their God-given purpose, and make a lasting impact in their homes, churches, communities, and beyond.', 'socalnextgen' ),
 	__( 'Through leadership development, mentorship, discipleship, creative opportunities, and meaningful programs, we are committed to raising a generation of faithful leaders and world changers. We proudly partner with local churches and youth ministries, serving alongside them as a resource and support system to strengthen their efforts and expand their impact.', 'socalnextgen' ),
 );
 ?>

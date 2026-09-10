@@ -211,7 +211,7 @@ class Component implements Component_Interface {
 			'home' => array(
 				'title'    => __( 'Home', 'socalnextgen' ),
 				'template' => 'front-page.php',
-				'content'  => __( 'Socal NextGen exists to equip youth leaders, empower students, and partner with local churches to fulfill the call of God on the next generation.', 'socalnextgen' ),
+				'content'  => __( 'Socal NextGen exists to equip youth leaders, empower students, and partner with local churches to fulfill the call of God on their lives.', 'socalnextgen' ),
 			),
 			'about' => array(
 				'title'    => __( 'About', 'socalnextgen' ),

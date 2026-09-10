@@ -17,7 +17,7 @@ get_header();
 		array(
 			'eyebrow' => __( 'Scholarships', 'socalnextgen' ),
 			'title'   => __( 'Supporting Students With Purpose', 'socalnextgen' ),
-			'intro'   => __( 'Helping graduating seniors pursue the next step in their God-given calling.', 'socalnextgen' ),
+			'intro'   => __( '', 'socalnextgen' ),
 		)
 	);
 	get_template_part(
