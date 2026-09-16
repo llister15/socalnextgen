@@ -1,0 +1,158 @@
+/* WooCommerce controls inherit the SocalNextGen design system. */
+.scng-commerce-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.2rem;
+}
+
+.scng-commerce-actions .scng-commerce-icon {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.375rem;
+	padding: 0;
+	border: 0;
+	border-radius: 4px;
+	background: transparent;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	list-style: none;
+}
+
+.scng-commerce-icon::-webkit-details-marker {
+	display: none;
+}
+
+.scng-commerce-actions .scng-commerce-icon:is(:hover, :focus-visible) {
+	color: var(--scng-gold);
+}
+
+.scng-commerce-actions .scng-commerce-icon:focus-visible {
+	outline: 2px solid var(--scng-gold);
+	outline-offset: -2px;
+}
+
+.scng-commerce-icon svg {
+	width: 1.1rem;
+	height: 1.1rem;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.scng-commerce-count {
+	position: absolute;
+	top: 0;
+	right: -0.1rem;
+	min-width: 1rem;
+	padding: 0.05rem 0.2rem;
+	border-radius: 1rem;
+	background: var(--scng-orange);
+	color: var(--scng-navy);
+	font: 800 0.65rem/1.3 var(--global-font-family);
+	text-align: center;
+}
+
+.scng-commerce-search {
+	position: relative;
+}
+
+.scng-commerce-search__form {
+	position: absolute;
+	z-index: 60;
+	top: calc(100% + 0.5rem);
+	right: 0;
+	width: min(22rem, calc(100vw - 2rem));
+	padding: 1rem;
+	border: 1px solid var(--scng-line);
+	border-radius: 8px;
+	background: #fff;
+	color: var(--scng-navy);
+	box-shadow: 0 8px 24px rgb(7 27 58 / 0.18);
+}
+
+.scng-commerce-search__form label {
+	display: block;
+	margin-bottom: 0.5rem;
+	font-weight: 700;
+}
+
+.scng-commerce-search__fields {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.scng-commerce-search__fields input[type="search"] {
+	width: 100%;
+	min-width: 0;
+	padding: 0.6rem;
+	border: 1px solid var(--scng-line);
+	border-radius: 4px;
+}
+
+/* The repeated WooCommerce scope outranks the plugin's default button rules. */
+.woocommerce.woocommerce :is(a.button, button.button, input.button, #respond input#submit),
+.woocommerce-page.woocommerce-page :is(a.button, button.button, input.button, #respond input#submit),
+.wc-block-components-button.wc-block-components-button:not(.is-link),
+:is(.wc-block-grid__product-add-to-cart.wp-block-button, .wp-block-woocommerce-product-button) .wp-block-button__link,
+.scng-commerce-search__form button {
+	padding: 0.8rem 1.2rem;
+	border: 2px solid transparent;
+	border-radius: 6px;
+	background: var(--scng-orange);
+	color: #fff;
+	font-family: var(--highlight-font-family);
+	font-size: 0.875rem;
+	font-weight: 800;
+	line-height: 1.3;
+	text-decoration: none;
+	text-transform: uppercase;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.woocommerce.woocommerce :is(a.button, button.button, input.button, #respond input#submit):hover,
+.woocommerce-page.woocommerce-page :is(a.button, button.button, input.button, #respond input#submit):hover,
+.wc-block-components-button.wc-block-components-button:not(.is-link):hover,
+:is(.wc-block-grid__product-add-to-cart.wp-block-button, .wp-block-woocommerce-product-button) .wp-block-button__link:hover,
+.scng-commerce-search__form button:hover {
+	background: var(--color-link-active);
+	color: #fff;
+}
+
+.woocommerce :is(.button, input, select):focus-visible,
+.woocommerce-page :is(.button, input, select):focus-visible,
+.wc-block-components-button:focus-visible,
+:is(.wc-block-grid__product-add-to-cart.wp-block-button, .wp-block-woocommerce-product-button) .wp-block-button__link:focus-visible,
+.scng-commerce-search__form :is(input, button):focus-visible {
+	outline: 2px solid var(--scng-navy);
+	outline-offset: 3px;
+}
+
+.woocommerce.woocommerce :is(.button:disabled, .button.disabled, .button.loading),
+.woocommerce-page.woocommerce-page :is(.button:disabled, .button.disabled, .button.loading),
+.wc-block-components-button:disabled {
+	opacity: 0.6;
+	cursor: wait;
+}
+
+.scng-shop {
+	width: min(var(--content-width), calc(100% - 2rem));
+	margin-inline: auto;
+	padding-block: 2.5rem;
+}
+
+.scng-commerce-notices:not(:empty) {
+	margin-block: 1rem;
+}
+
+@media (--narrow-menu-query) {
+	.scng-utility-bar__inner {
+		gap: 0.5rem;
+	}
+}

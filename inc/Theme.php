@@ -162,6 +162,7 @@ class Theme {
 			new Weekly_Services\Component(),
 			new Youth_Groups\Component(),
 			new Sharing_Metadata\Component(),
+			new Commerce\Component(),
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {

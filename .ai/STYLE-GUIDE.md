@@ -78,3 +78,10 @@ SocalNextGen uses a bright Southern California youth-ministry look: white space,
 - Singular content uses its title, excerpt, canonical URL, content type, featured image, and featured-image alt text for Open Graph and X/Twitter sharing.
 - Fall back to the site description and SocalNextGen logo when contextual descriptions or images are unavailable.
 - Theme metadata must yield to a recognized SEO plugin to avoid duplicate social tags.
+
+## Commerce
+
+- Utility-bar account, cart, and product-search SVG controls sit after the secondary navigation and remain visible on mobile. Use white strokes, gold focus/hover, and an orange quantity badge with navy numerals.
+- Cart links to the configured cart page; account links to My Account. Product search opens a labeled compact GET form with Escape and outside-click dismissal.
+- WooCommerce primary actions use the existing orange, white uppercase condensed typography, and slight radius, including Select options and classic/block cart and checkout actions. Preserve disabled/loading and keyboard focus states.
+- Additions to the cart update in place with WooCommerce notices and a live header badge; stock and selection errors remain visible. The page loader continues to represent full navigation only.

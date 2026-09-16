@@ -23,20 +23,23 @@ namespace WP_Rig\WP_Rig;
 		);
 		?>
 
-		<?php if ( has_nav_menu( 'utility' ) ) : ?>
-			<nav class="scng-utility-nav" aria-label="<?php esc_attr_e( 'Utility menu', 'socalnextgen' ); ?>">
-				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'utility',
-						'menu_class'     => 'scng-utility-nav__menu',
-						'container'      => false,
-						'depth'          => 1,
-						'fallback_cb'    => false,
-					)
-				);
-				?>
-			</nav>
-		<?php endif; ?>
+		<div class="scng-utility-bar__actions">
+			<?php if ( has_nav_menu( 'utility' ) ) : ?>
+				<nav class="scng-utility-nav" aria-label="<?php esc_attr_e( 'Utility menu', 'socalnextgen' ); ?>">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'utility',
+							'menu_class'     => 'scng-utility-nav__menu',
+							'container'      => false,
+							'depth'          => 1,
+							'fallback_cb'    => false,
+						)
+					);
+					?>
+				</nav>
+			<?php endif; ?>
+			<?php wp_rig()->commerce_actions(); ?>
+		</div>
 	</div>
 </div>

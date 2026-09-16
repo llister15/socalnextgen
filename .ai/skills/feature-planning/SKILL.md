@@ -1,15 +1,15 @@
 ---
-description: Contract-first approach for planning new features in WP Rig themes.
-globs: .ai/plans/**/*.md, inc/**/*.php, assets/**/*
+name: feature-planning
+description: Plan WP Rig theme features with a concise specification, repository discovery, and reasonable defaults before implementation.
 ---
 
 # Feature Planning: Contract-First Strategy
 
-This skill guides the agent through a "Contract-First" feature planning process for WP Rig. This approach ensures that we have a clear, agreed-upon technical plan before any code is written or files are modified.
+This skill guides the agent through a "Contract-First" feature planning process for WP Rig. Create a concrete technical plan before implementing theme features, using the user’s request and repository evidence to resolve routine decisions.
 
 ## The Core Philosophy
 
-1.  **Contract Establishment:** Do not create or modify theme files until a specification (`SPEC.md`) is finalized and approved by the user. All design-related specs must align with or update the `.ai/STYLE-GUIDE.md`.
+1.  **Contract Establishment:** Write a specification (`SPEC.md`) before implementing theme features. A user’s request to implement a feature authorizes proceeding within that scope; separate specification approval is required only when the user explicitly requests it. Documentation-only edits to this workflow do not require a feature specification. All design-related specs must align with or update the `.ai/STYLE-GUIDE.md`.
 2.  **Challenge the Request:** As a WP Rig expert, you must ensure any feature plan follows WP Rig's opinionated architecture and design standards. If a user's request violates these (e.g., inconsistent typography or non-standard markup), you must challenge it.
 3.  **Design-Planning Reciprocity:** Designs in the `.ai/STYLE-GUIDE.md` must inform feature planning, and new feature plans that introduce novel design patterns must be used to update the style guide. If this style guide does not yet exist, it must be created and completely documented with a full set of common design patterns and concerns from color pallets to typography, layout spacing rules, and more.
 4.  **Strategic Trio Alignment:** Every feature must be evaluated through three lenses:
@@ -20,23 +20,16 @@ This skill guides the agent through a "Contract-First" feature planning process 
 
 ## The Process
 
-### Step 1: Clarification Rounds
+### Step 1: Discover Context and Resolve Unknowns
 
-Before drafting the specification, ask the user structured questions to define the "What" and the "How".
+Read `config/config.json`, relevant source files, and applicable architecture and design guidance. Use repository evidence and the user’s existing instructions before asking questions.
 
-#### The Clarification Loop
-- **One focused question at a time:** Ask exactly one question that targets the highest-impact unknown.
-- **Re-scan context:** After each user response, re-scan the codebase and existing skills for additional context if relevant.
-- **Self-Confidence Assessment:** After each response, assess your internal confidence level (0-100%) for implementing the feature within WP Rig standards.
-- **The 95% Threshold:** Continue the clarification loop until your implementation confidence score is **over 95%**.
-- **Challenge the Request:** If the user's requirement doesn't make technical or business sense within WP Rig's architecture, surface your concern immediately.
-- **No "Final Question":** Let the conversation flow; do not declare a "final question" until the 95% threshold is met.
-
-#### Echo Check (Contract Proposal)
-Once the 95% threshold is reached:
-- **Summarize the Contract:** Provide a concise summary of the "Technical Contract" (the "What" and the "How").
-- **Declare Confidence:** Explicitly state: "Based on our discussion, I now have a 95% confidence level for the implementation."
-- **Seek Agreement:** Ask: "Do you agree with this blueprint, or should we clarify anything else before I draft the formal specification?"
+- Choose reasonable defaults for reversible implementation and design decisions, following existing theme conventions.
+- Ask only when missing information materially affects correctness, scope, or a consequential user choice and cannot be inferred from the repository.
+- Do not require a minimum number of questions, numerical confidence scores, an echo-check approval, or repeated permission to perform already authorized work.
+- Document assumptions and actual user answers separately in the specification. Never label an inferred default as user-approved.
+- State significant defaults briefly and continue independent work while awaiting any necessary clarification. Silence is not approval.
+- Respect explicit requests to review a plan before implementation, and obtain any authorization required for actions beyond the original task.
 
 #### Key Areas to Explore
 - **Business Value:** What is the core problem being solved? Who is the end-user?
@@ -64,15 +57,15 @@ The `SPEC.md` must include:
 6.  **Technical Plan (The "Contract"):**
     - **Scaffolding:** Commands like `npm run create-rig-component`.
     - **Implementation Steps:** Logical order of file creation/modification.
-    - **Verification:** Tools and commands to test the result (Refer to [Testing skill](../testing/SKILL.md)).
+    - **Verification:** Tools and commands to test the result (Refer to [E2E Testing skill](../e2e-testing/SKILL.md) and [Code Quality Standards](../code-quality-standards/SKILL.md)).
 
 ### Step 3: Refinement
 
-Present the draft `SPEC.md` to the user and iterate based on their feedback. Only proceed to implementation after the user confirms they are satisfied with the "Contract".
+Make the specification reviewable and proceed with implementation within the user’s authorized scope. Update it when findings or user feedback change the plan. Pause for specification approval only if the user requested that checkpoint; otherwise do not add an approval gate.
 
 ## Best Practices
 
-- **Zero Presumption:** Never assume a specific file path or method name until it's documented in the `SPEC.md`.
+- **Evidence-Based Planning:** Verify file paths and integration points in the repository and record important decisions in `SPEC.md`.
 - **Reference Skills:** Always link to relevant `/.ai/skills/*.md` files within your technical plan to ensure the agent (or developer) follows the correct recipe.
 - **Fail Early:** If the feature request is not technically feasible within WP Rig's architecture, identify this during the planning phase.
 - **Maintain Context:** Keep all related planning documents (User Stories, Technical Specs) within the same `.ai/plans/` subdirectory.

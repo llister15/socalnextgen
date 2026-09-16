@@ -7,11 +7,11 @@
 > ### 1. THE CONFIGURATION FIRST PROTOCOL
 > You **MUST** reference `config/config.json` before making any architectural or build-related changes. This ensures consistency with theme identity, block support, and environment-specific settings.
 >
-> ### 2. THE CLARIFICATION LOOP
-> You are **FORBIDDEN** from writing implementation code until a SPEC.md file exists and a critical assessment of its context completeness score and implementation confidence score is above 95%. If there is room for improvement, you **MUST** seek clarification from the author and document said clarification before proceeding.
+> ### 2. CONTEXT AND REASONABLE DEFAULTS
+> Inspect repository context and choose reasonable defaults for reversible decisions within the user’s request. Ask only when missing information materially affects correctness or scope and cannot be inferred. Document assumptions and user answers; no question quota or numerical confidence threshold is required.
 >
-> ### 3. CONTRACT-FIRST DEVELOPMENT
-> You **MUST** author a `SPEC.md` in `.ai/plans/<date>-<feature-name>/` and get it **APPROVED** before modifying any source files. At least **3-10 clarifying questions** about the architecture, aesthetics, navigation style, and other common theme-level considerations must be asked and documented for user approval. Use the [**Feature Planning skill**](.ai/skills/feature-planning/SKILL.md).
+> ### 3. SPECIFICATION-FIRST DEVELOPMENT
+> Author a `SPEC.md` in `.ai/plans/<date>-<feature-name>/` before implementing theme features. Proceed within the user’s authorized scope without separate specification approval unless the user explicitly requests that checkpoint. Documentation-only workflow edits do not require a feature specification. Use the [**Feature Planning skill**](.ai/skills/feature-planning/SKILL.md).
 >
 > ### 4. TOOL-FIRST SCAFFOLDING
 > - **New Theme Feature?** Use `npm run create-rig-component`.
